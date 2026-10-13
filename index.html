@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>泰迪幼犬 · 布置 × 训练 一体化方案</title>
+<style>
+  :root{
+    --bg:#faf7f2; --card:#fff; --ink:#2c2621; --muted:#7a6f63;
+    --line:#e6ddd0; --accent:#c9704a; --accent2:#5b7c5a;
+    --bed:#8fa8c8; --play:#e8c98a; --toilet:#c9a8a0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 20px 80px}
+  header{padding:54px 0 30px;text-align:center}
+  .dog{font-size:34px;margin-bottom:8px}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px}
+  header h1{font-size:clamp(26px,4.5vw,40px);line-height:1.25;font-weight:800;letter-spacing:-.01em}
+  header p{color:var(--muted);margin-top:14px;font-size:15px;max-width:640px;margin-left:auto;margin-right:auto}
+  section{margin-top:50px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px;flex-wrap:wrap}
+  .sec-num{font-size:12px;font-weight:800;color:#fff;background:var(--accent);width:26px;height:26px;
+    border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex:none}
+  .sec-head h2{font-size:clamp(19px,3vw,25px);font-weight:800;letter-spacing:-.01em}
+  .sec-sub{color:var(--muted);font-size:14px;margin-bottom:22px;padding-left:40px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:16px}
+  .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+  .ctrl label{display:block;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:9px}
+  .ctrl .val{font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+  input[type=range]{width:100%;accent-color:var(--accent)}
+  .seg{display:flex;gap:6px;flex-wrap:wrap}
+  .seg button{flex:1;min-width:58px;padding:8px 6px;border:1px solid var(--line);background:#fff;border-radius:9px;
+    cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);transition:.15s;font-family:inherit}
+  .seg button:hover{border-color:var(--accent);color:var(--accent)}
+  .seg button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .seg button small{display:block;font-size:10px;font-weight:600;opacity:.75;margin-top:2px}
+  .diagram{display:grid;grid-template-columns:1.15fr .85fr;gap:26px;align-items:center}
+  @media(max-width:720px){.diagram{grid-template-columns:1fr}}
+  svg{width:100%;height:auto;display:block}
+  .legend{display:flex;flex-direction:column;gap:11px}
+  .lg{display:flex;align-items:flex-start;gap:11px;font-size:14px}
+  .sw{width:19px;height:19px;border-radius:6px;flex:none;border:1.5px solid rgba(0,0,0,.12);margin-top:2px}
+  .lg span{color:var(--muted);font-size:13px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:12px;margin-top:18px}
+  .stat{background:#fbf9f5;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .stat .k{font-size:11.5px;color:var(--muted);font-weight:700}
+  .stat .v{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:3px}
+  .stat .v small{font-size:12px;font-weight:600;color:var(--muted)}
+  .verdict{margin-top:18px;padding:15px 18px;border-radius:11px;font-size:14px;display:flex;gap:12px;align-items:flex-start;font-weight:600}
+  .verdict.ok{background:#eef4ed;border:1px solid #cfdfcd;color:#3d5a3c}
+  .verdict.warn{background:#fbf0e9;border:1px solid #edd4c4;color:#8a4a2c}
+  .verdict .ic{font-size:18px;line-height:1.45}
+  .verdict ul{margin:6px 0 0 18px}
+  .flow{display:grid}
+  .step{display:grid;grid-template-columns:44px 1fr;gap:16px;padding-bottom:20px;position:relative}
+  .step:not(:last-child)::before{content:"";position:absolute;left:21px;top:40px;bottom:0;width:2px;background:var(--line)}
+  .step .n{width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--accent);color:var(--accent);
+    font-weight:800;display:flex;align-items:center;justify-content:center;font-size:16px;flex:none;z-index:1}
+  .step h4{font-size:15.5px;font-weight:800;margin-bottom:4px;padding-top:9px}
+  .step p{font-size:14px;color:var(--muted)}
+  .tag{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:20px;margin-top:7px;background:#f2ece3;color:var(--muted)}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line)}
+  th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800}
+  tr:last-child td{border-bottom:none}
+  .pill{font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap}
+  .pill.ok{background:#eef4ed;color:#3d5a3c}
+  .pill.no{background:#fbf0e9;color:#8a4a2c}
+  .pill.mid{background:#fdf5e6;color:#8a6a2e}
+  .tl{position:relative;margin-left:8px}
+  .tl::before{content:"";position:absolute;left:66px;top:8px;bottom:8px;width:2px;background:var(--line)}
+  .ev{display:grid;grid-template-columns:58px 1fr;gap:22px;padding:9px 0;position:relative}
+  .ev .t{font-size:12.5px;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right;padding-top:1px}
+  .ev .d{position:relative;padding-left:22px}
+  .ev .d::before{content:"";position:absolute;left:-5px;top:8px;width:11px;height:11px;border-radius:50%;background:#fff;border:2.5px solid var(--accent)}
+  .ev.crate .d::before{background:var(--bed);border-color:var(--bed)}
+  .ev.pen .d::before{background:var(--play);border-color:var(--play)}
+  .ev.potty .d::before{background:var(--toilet);border-color:var(--toilet)}
+  .ev .d b{font-weight:700;font-size:14.5px}
+  .ev .d span{color:var(--muted);font-size:13px}
+  .callout{border-left:3px solid var(--accent);background:#fbf6f1;padding:13px 17px;border-radius:0 10px 10px 0;font-size:14px;margin-top:16px}
+  .callout b{color:var(--accent)}
+  .callout.green{border-left-color:var(--accent2);background:#f2f6f1}
+  .callout.green b{color:var(--accent2)}
+  footer{margin-top:58px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+  .src{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.65}
+  @media print{body{background:#fff}.seg button{display:none}section{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="dog">🐩</div>
+  <div class="kicker">泰迪（玩具/迷你贵宾）· 10 周龄起</div>
+  <h1>布置 × 训练 一体化方案</h1>
+  <p>把「笼子／围栏怎么摆」和「如厕训练怎么做」合成一件事——因为空间布局本身就是训练工具。</p>
+</header>
+
+<!-- ============ 1 ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">1</span><h2>布置：三区布局（LTCA）</h2></div>
+  <div class="sec-sub">长时间禁闭区 = 床（笼）＋ 活动区 ＋ 厕所，按「狗的身长」拉开距离</div>
+
+  <div class="card">
+    <div class="controls">
+      <div class="ctrl">
+        <label>成犬身长（鼻→尾根）：<span class="val" id="dogVal">55</span> cm</label>
+        <input type="range" id="dog" min="35" max="65" value="55" step="1">
+      </div>
+      <div class="ctrl">
+        <label>围栏组合（选你买的那个）</label>
+        <div class="seg" id="cfgSeg"></div>
+      </div>
+      <div class="ctrl">
+        <label>笼子位置</label>
+        <div class="seg" id="crateSeg">
+          <button data-c="in" class="on">放围栏内</button>
+          <button data-c="out">放围栏外</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="diagram">
+      <div><svg id="plan" viewBox="0 0 400 300" aria-label="俯视布局图"></svg></div>
+      <div class="legend">
+        <div class="lg"><span class="sw" style="background:var(--bed)"></span><div><b>卧室区</b><br><span>笼子／床，门敞开</span></div></div>
+        <div class="lg"><span class="sw" style="background:var(--play)"></span><div><b>活动区</b><br><span>水碗（中间）＋ 塞食玩具</span></div></div>
+        <div class="lg"><span class="sw" style="background:var(--toilet)"></span><div><b>厕所区</b><br><span>离床最远的那一头</span></div></div>
+        <div class="callout" style="margin-top:2px;font-size:13px">
+          <b>为什么必须分开？</b>狗天生不在窝里排泄。把厕所推到最远，它自己就会走过去——不用教。
+        </div>
+      </div>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div id="verdict"></div>
+  </div>
+
+  <div class="card">
+    <h3 style="font-size:15px;margin-bottom:14px">📐 尺寸规则（全部按 cm）</h3>
+    <table>
+      <tr><th>部件</th><th>规则</th><th>你的数值</th></tr>
+      <tr><td><b>笼子</b></td><td>站-转-躺，多一分不要；买成年尺寸＋隔板</td><td>60 × 45 × 50</td></tr>
+      <tr><td><b>隔板位置</b></td><td>幼犬期收到「刚好站-转-躺」</td><td>40–45</td></tr>
+      <tr><td><b>围栏长轴</b></td><td>笼 ＋ 走道 ＋ 厕所</td><td id="tLong">—</td></tr>
+      <tr><td><b>围栏短边</b></td><td>≥ 身长 ＋ 10cm（能转身）</td><td id="tShort">—</td></tr>
+      <tr><td><b>围栏高度</b></td><td>≥65cm；<b>放笼子＝跳台，65 撑不过 6 个月</b></td><td>65（建议 75）</td></tr>
+    </table>
+    <div class="callout">
+      <b>关键取舍：</b>笼子放围栏里 → 高度必须 75cm（笼顶是跳台，65 会被翻）；笼子放外面 → 65cm 够用。
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">2</span><h2>训练：如厕 1-2-3</h2></div>
+  <div class="sec-sub">Dunbar「无错式如厕训练」——笼子让你能<b>预测</b>，预测让你能<b>奖励</b>，奖励才是秘诀</div>
+  <div class="card">
+    <div class="flow">
+      <div class="step"><div class="n">1</div><div>
+        <h4>关进笼子（不是围栏）</h4>
+        <p>你在家时用笼子。笼子小 → 它憋着 → 膀胱慢慢充盈，一小时后必然想尿。</p>
+        <span class="tag">为什么不用围栏：围栏里它能自己去厕所，但你不在场、没法奖励</span>
+      </div></div>
+      <div class="step"><div class="n">2</div><div>
+        <h4>每小时整点，从笼子放出来 → 小跑去厕所</h4>
+        <p>牵绳、快步（小跑会晃动膀胱，让它更想尿）→ 到<b>笼子外面的定点</b> → 说口令「去尿尿」→ 给 3 分钟。</p>
+        <span class="tag">厕所 = 笼外的定点（室内尿垫／狗厕所／户外），不是笼子里的</span>
+      </div></div>
+      <div class="step"><div class="n">3</div><div>
+        <h4>尿了 → 3 秒内奖励 → 回笼或自由玩</h4>
+        <p>大声夸 ＋ 3 个零食。没尿 → 别骂，放回笼子，半小时后再试。</p>
+        <span class="tag">「奖励它用厕所，才是如厕训练成功的秘诀」</span>
+      </div></div>
+    </div>
+    <div class="callout green"><b>铁律：</b>笼子里永远不能有厕所。否则它会学会「弄脏自己的窝」，训练全废。</div>
+  </div>
+
+  <div class="card">
+    <h3 style="font-size:15px;margin-bottom:14px">🤔 什么时候用笼子，什么时候用围栏？</h3>
+    <table>
+      <tr><th>你在干嘛</th><th>用哪个</th><th>厕所在哪</th><th>有人奖励？</th></tr>
+      <tr><td>在家工作（能中断）</td><td><b>笼子</b></td><td>笼外定点</td><td><span class="pill ok">✅ 有</span></td></tr>
+      <tr><td>开会／出门／脱不开身</td><td><b>围栏</b></td><td>围栏内厕所角</td><td><span class="pill no">❌ 无</span></td></tr>
+      <tr><td>晚上睡觉</td><td><b>笼子</b>（卧室床边）</td><td>夜起 1–2 次带出去</td><td><span class="pill ok">✅ 有</span></td></tr>
+    </table>
+    <div class="callout"><b>记住这条：</b>围栏是「你实在脱不开身」的备份；<b>笼子 ＋ 每小时</b>才是真正的训练。</div>
+  </div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">3</span><h2>一天时间线（10–12 周示例）</h2></div>
+  <div class="sec-sub">节奏：约 1 小时清醒 ＋ 约 2 小时笼内休息——幼犬每天要睡 18–20 小时</div>
+  <div class="card">
+    <div class="tl">
+      <div class="ev potty"><div class="t">6:30</div><div class="d"><b>醒 → 直接抱出门</b><br><span>脚不沾地，第一件事就是如厕</span></div></div>
+      <div class="ev"><div class="t">7:00</div><div class="d"><b>早餐 ＋ 15 分钟玩／训练</b><br><span>吃后 10–20 分钟会想拉</span></div></div>
+      <div class="ev crate"><div class="t">8:00</div><div class="d"><b>笼内小睡（≤2 小时）</b><br><span>塞食玩具，把独处和好事配对</span></div></div>
+      <div class="ev potty"><div class="t">10:00</div><div class="d"><b>出笼 → 立刻带厕所</b><br><span>「去尿尿」→ 尿了 3 秒内奖励</span></div></div>
+      <div class="ev"><div class="t">10:15</div><div class="d"><b>监督下玩耍／短训练</b><br><span>2–5 分钟训练，别超时</span></div></div>
+      <div class="ev crate"><div class="t">11:00</div><div class="d"><b>笼内小睡</b></div></div>
+      <div class="ev potty"><div class="t">13:00</div><div class="d"><b>出笼 → 厕所 → 午餐</b></div></div>
+      <div class="ev pen"><div class="t">14:00</div><div class="d"><b>你工作忙 → 围栏</b><br><span>围栏里有厕所角，它自己解决</span></div></div>
+      <div class="ev potty"><div class="t">16:00</div><div class="d"><b>出笼 → 厕所 → 散步／社会化</b><br><span>疫苗没打完：抱着见世面，别落地</span></div></div>
+      <div class="ev"><div class="t">17:30</div><div class="d"><b>晚餐 → 厕所 → 平静时间</b></div></div>
+      <div class="ev"><div class="t">19:00</div><div class="d"><b>咀嚼玩具／垫子训练</b><br><span>练「安静待着」</span></div></div>
+      <div class="ev crate"><div class="t">21:00</div><div class="d"><b>最后一次厕所 → 进笼过夜</b></div></div>
+      <div class="ev potty"><div class="t">2:00</div><div class="d"><b>夜起一次（10–12 周后常可省）</b><br><span>安静、只上厕所、立刻回笼</span></div></div>
+    </div>
+  </div>
+  <div class="callout"><b>过度疲劳是咬人、闹腾的头号原因。</b>别用「多运动」解决——那是火上浇油。到点就让它睡。</div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section>
+  <div class="sec-head"><span class="sec-num">4</span><h2>别做的事</h2></div>
+  <div class="card">
+    <table>
+      <tr><th>❌ 别做</th><th>为什么</th></tr>
+      <tr><td>把笼子／围栏当惩罚</td><td>它会把「窝」和「坏事」联系，独处训练倒退</td></tr>
+      <tr><td>把狗关在厕所里等它尿</td><td>逼它在密闭空间排泄 → 养成「脏狗」，以后床上都尿</td></tr>
+      <tr><td>按头闻尿／事后责骂</td><td>它无法把「讨厌」和「尿在家里」联系，只会更会藏</td></tr>
+      <tr><td>围栏里放笼子却只买 65cm 高</td><td>笼顶＝跳台，约 6 个月就能翻出去</td></tr>
+      <tr><td>用蓬松软窝当幼犬睡具</td><td>换牙期会撕烂，吞填充物＝肠梗阻（急诊）</td></tr>
+      <tr><td>24 小时都陪着它</td><td>养成过度依恋——用它旁边的房间练「看不见你」</td></tr>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <b>布置与训练，本质是同一件事：</b>空间决定它会不会犯错，训练决定它学会什么。<br>
+  三区布局让「对的行为」成为唯一选项，定时奖励让「对的行为」被记住。
+  <div class="src"><b>来源：</b>Ian Dunbar《Before You Get Your Puppy》（LTCA · Housetraining 1-2-3 · 3:1 长窄形）·
+    UC Davis《House-Training Your Puppy》（三区分离）· Pawsome Guides（三区布局 · 走道距离）·
+    Dogs Trust / Bestdog.au（笼＋围栏配合条件）· AVSAB（防过度依恋）· AKC（笼子买成年尺寸＋隔板）。</div>
+</footer>
+
+</div>
+
+<script>
+/* ---------- 真实商品配置 ---------- */
+const CONFIGS = [
+  {id:'120x80',  w:120, h:80,  kit:'10+2', price:129},
+  {id:'90x110',  w:90,  h:110, kit:'10+2', price:129},
+  {id:'60x140',  w:60,  h:140, kit:'10+2', price:129},
+  {id:'120x110', w:120, h:110, kit:'12+2', price:149},
+  {id:'90x140',  w:90,  h:140, kit:'12+2', price:149},
+];
+const CRATE = [60,45], TOILET = [40,40];
+
+const S = { dog:55, cfg:'120x80', crateIn:true };
+
+/* ---------- 控件 ---------- */
+const cfgSeg = document.getElementById('cfgSeg');
+cfgSeg.innerHTML = CONFIGS.map(c =>
+  `<button data-id="${c.id}"><b>${c.w}×${c.h}</b><small>${c.kit} · ¥${c.price}</small></button>`
+).join('');
+cfgSeg.querySelector('[data-id="120x80"]').classList.add('on');
+
+document.getElementById('dog').addEventListener('input', e=>{
+  S.dog = +e.target.value;
+  document.getElementById('dogVal').textContent = S.dog;
+  render();
+});
+cfgSeg.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+  cfgSeg.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); S.cfg = b.dataset.id; render();
+}));
+document.querySelectorAll('#crateSeg button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#crateSeg button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); S.crateIn = (b.dataset.c==='in'); render();
+}));
+
+/* ---------- 几何 ---------- */
+function calc(){
+  const c = CONFIGS.find(x=>x.id===S.cfg);
+  const long = Math.max(c.w,c.h), short = Math.min(c.w,c.h);
+  const walk = S.crateIn ? long - CRATE[0] - TOILET[0] : long - TOILET[0];
+  const turn = short - S.dog;
+  return {c, long, short, walk, turn};
+}
+
+function render(){
+  const {c, long, short, walk, turn} = calc();
+  const area = (long*short/10000).toFixed(2);
+
+  const walkTag = walk>=25 ? ['ok',''] : walk>=15 ? ['mid','偏紧'] : ['no','太近'];
+  const turnTag = turn>=15 ? ['ok',''] : turn>=5 ? ['mid','偏紧'] : ['no','转不了'];
+
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><div class="k">围栏</div><div class="v">${long}<small> × ${short} cm</small></div></div>
+    <div class="stat"><div class="k">面积</div><div class="v">${area}<small> m²</small></div></div>
+    <div class="stat"><div class="k">走道余量</div><div class="v" style="color:var(--${walkTag[0]==='ok'?'accent2':'accent'})">${walk}<small> cm ${walkTag[1]}</small></div></div>
+    <div class="stat"><div class="k">转身余量</div><div class="v" style="color:var(--${turnTag[0]==='ok'?'accent2':'accent'})">${turn}<small> cm ${turnTag[1]}</small></div></div>
+  `;
+
+  const problems = [];
+  if(turn < 5)  problems.push(`短边 ${short}cm 只比狗身长多 ${turn}cm——<b>转不了身</b>（要短边 ≥ 身长+10）`);
+  else if(turn < 15) problems.push(`短边 ${short}cm 转身余量 ${turn}cm——<b>偏紧</b>，建议短边 ≥ ${S.dog+15}cm`);
+  if(walk < 15) problems.push(`床到厕所走道仅 ${walk}cm——<b>太近，可能就近尿</b>（要 ≥25cm）`);
+  else if(walk < 25) problems.push(`走道 ${walk}cm——够用但偏短，推荐 ≥25cm`);
+
+  const v = document.getElementById('verdict');
+  if(problems.length===0){
+    v.className='verdict ok';
+    v.innerHTML = `<div class="ic">✅</div><div><b>这个配置可用。</b>走道和转身都够，三区划分清晰。</div>`;
+  } else {
+    v.className='verdict warn';
+    v.innerHTML = `<div class="ic">⚠️</div><div><b>注意：</b><ul>${problems.map(p=>`<li>${p}</li>`).join('')}</ul></div>`;
+  }
+
+  document.getElementById('tLong').textContent = `${long} cm（笼+走道+厕所）`;
+  document.getElementById('tShort').textContent = `${short} cm ${turn>=15?'✅':turn>=5?'⚠️':'❌'}`;
+
+  draw(long, short);
+}
+
+/* ---------- SVG ---------- */
+function draw(L,W){
+  const svg = document.getElementById('plan');
+  const VBW=400, VBH=300, PAD=38;
+  const scale = Math.min((VBW-PAD*2)/L, (VBH-PAD*2)/W);
+  const pw=L*scale, ph=W*scale, x0=(VBW-pw)/2, y0=(VBH-ph)/2;
+  const [cw,ch]=CRATE, [tw,th]=TOILET;
+  let s='';
+
+  s += `<rect x="${x0}" y="${y0}" width="${pw}" height="${ph}" rx="6" fill="#fdfcf9"
+          stroke="#c9704a" stroke-width="2.5" stroke-dasharray="7 5"/>`;
+
+  const bedW = (S.crateIn ? cw : 0)*scale;
+  const toiW = tw*scale;
+
+  if(S.crateIn){
+    s += `<rect x="${x0}" y="${y0}" width="${bedW}" height="${ph}" fill="var(--bed)" opacity=".55"/>`;
+    s += `<text x="${x0+bedW/2}" y="${y0+ph/2-4}" font-size="11" font-weight="700" text-anchor="middle" fill="#3b4f6b">卧室</text>`;
+    s += `<text x="${x0+bedW/2}" y="${y0+ph/2+10}" font-size="9.5" text-anchor="middle" fill="#5a6d86">笼 ${cw}×${ch}</text>`;
+  }
+
+  s += `<rect x="${x0+pw-toiW}" y="${y0}" width="${toiW}" height="${ph}" fill="var(--toilet)" opacity=".6"/>`;
+  s += `<text x="${x0+pw-toiW/2}" y="${y0+ph/2-4}" font-size="11" font-weight="700" text-anchor="middle" fill="#7a534c">厕所</text>`;
+  s += `<text x="${x0+pw-toiW/2}" y="${y0+ph/2+10}" font-size="9.5" text-anchor="middle" fill="#8a6560">${tw}×${th}</text>`;
+
+  const actX = x0+bedW, actW = pw-bedW-toiW;
+  if(actW>0){
+    s += `<rect x="${actX}" y="${y0}" width="${actW}" height="${ph}" fill="var(--play)" opacity=".42"/>`;
+    s += `<text x="${actX+actW/2}" y="${y0+ph/2-2}" font-size="11" font-weight="700" text-anchor="middle" fill="#8a6a2e">活动</text>`;
+    s += `<circle cx="${actX+actW/2}" cy="${y0+ph/2+18}" r="7" fill="#fff" stroke="#c9b280" stroke-width="1.6"/>`;
+  }
+
+  s += `<line x1="${x0}" y1="${y0+ph+16}" x2="${x0+pw}" y2="${y0+ph+16}" stroke="#a99b8a" stroke-width="1.2" marker-start="url(#aS)" marker-end="url(#aE)"/>`;
+  s += `<text x="${x0+pw/2}" y="${y0+ph+31}" font-size="11" font-weight="700" text-anchor="middle" fill="#7a6f63">${L} cm</text>`;
+  s += `<line x1="${x0-18}" y1="${y0}" x2="${x0-18}" y2="${y0+ph}" stroke="#a99b8a" stroke-width="1.2" marker-start="url(#aS)" marker-end="url(#aE)"/>`;
+  s += `<text x="${x0-26}" y="${y0+ph/2}" font-size="11" font-weight="700" text-anchor="middle" fill="#7a6f63"
+          transform="rotate(-90 ${x0-26} ${y0+ph/2})">${W} cm</text>`;
+
+  if(!S.crateIn){
+    s += `<text x="${x0+pw/2}" y="${y0-12}" font-size="10.5" text-anchor="middle" fill="#8a7f72">笼子在围栏外 → 围栏内只需 活动＋厕所</text>`;
+  }
+
+  s += `<defs>
+    <marker id="aE" markerWidth="7" markerHeight="7" refX="5.5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#a99b8a"/></marker>
+    <marker id="aS" markerWidth="7" markerHeight="7" refX="0.5" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 z" fill="#a99b8a"/></marker>
+  </defs>`;
+  svg.innerHTML = s;
+}
+
+render();
+</script>
+</body>
+</html>

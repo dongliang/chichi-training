@@ -1,0 +1,21 @@
+# 系统
+.DS_Store
+Thumbs.db
+
+# 编辑器
+*.swp
+*~
+.idea/
+.vscode/
+
+# 构建产物
+build/
+dist/
+*.o
+*.pyc
+__pycache__/
+node_modules/
+
+# 临时文件
+*.orig
+*.log
