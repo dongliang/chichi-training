@@ -1,0 +1,1690 @@
+<title>Chichi 训练手册</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&display=swap">
+
+<style>
+/* Layout concept: 临床训练手册 —— 左侧固定目录栏，右侧是带编号的训练卡，
+   原文引用像脚注一样贴在卡片下沿。 */
+:root{
+  --paper:#EEF1ED;
+  --surface:#FBFCFA;
+  --surface-2:#E5EAE4;
+  --ink:#17231E;
+  --ink-2:#4A5A53;
+  --ink-3:#7E8D86;
+  --line:#D3DBD4;
+  --line-2:#B7C2B9;
+  --accent:#2C6A50;
+  --accent-ink:#1E4A37;
+  --accent-soft:#DCEAE1;
+  --gold:#95671F;
+  --gold-soft:#F3E8D3;
+  --danger:#9E3C2B;
+  --danger-soft:#F5E1DB;
+  --shadow:0 1px 2px rgba(23,35,30,.05),0 10px 26px -18px rgba(23,35,30,.45);
+  --r:13px;
+  --font-display:"Noto Serif SC",Georgia,"Songti SC",serif;
+  --font-body:"Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#111714;
+    --surface:#18211D;
+    --surface-2:#202B26;
+    --ink:#E7EDE8;
+    --ink-2:#A6B5AE;
+    --ink-3:#7C8B84;
+    --line:#2B3833;
+    --line-2:#3B4A44;
+    --accent:#6FB394;
+    --accent-ink:#8CC9AC;
+    --accent-soft:#1D3229;
+    --gold:#D6A75E;
+    --gold-soft:#332817;
+    --danger:#E08872;
+    --danger-soft:#3A211C;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 26px -18px rgba(0,0,0,.8);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111714;
+  --surface:#18211D;
+  --surface-2:#202B26;
+  --ink:#E7EDE8;
+  --ink-2:#A6B5AE;
+  --ink-3:#7C8B84;
+  --line:#2B3833;
+  --line-2:#3B4A44;
+  --accent:#6FB394;
+  --accent-ink:#8CC9AC;
+  --accent-soft:#1D3229;
+  --gold:#D6A75E;
+  --gold-soft:#332817;
+  --danger:#E08872;
+  --danger-soft:#3A211C;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 26px -18px rgba(0,0,0,.8);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:15.5px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);
+  z-index:10;background:var(--paper);
+}
+h1,h2,h3,h4{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.35;letter-spacing:.01em}
+p{margin:0}
+a{color:inherit}
+button{font-family:inherit}
+::selection{background:var(--accent-soft);color:var(--accent-ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+.shell{
+  display:grid;
+  grid-template-columns:252px minmax(0,1fr);
+  max-width:1360px;
+  margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  align-items:start;
+}
+
+/* ---------- rail ---------- */
+.rail{
+  position:sticky;top:0;
+  height:100vh;
+  height:100dvh;
+  display:flex;flex-direction:column;
+  gap:18px;
+  padding:26px 20px 18px 0;
+  border-right:1px solid var(--line);
+  min-width:0;
+}
+.brand{display:flex;flex-direction:column;gap:3px}
+.brand .mark{
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);font-weight:500;
+}
+.brand h1{font-size:19px;font-weight:700;letter-spacing:.02em}
+.brand .sub{font-size:11.5px;color:var(--ink-3);line-height:1.5}
+
+.search{
+  display:flex;align-items:center;gap:8px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:7px 10px;
+}
+.search svg{width:14px;height:14px;flex:none;color:var(--ink-3)}
+.search input{
+  border:0;background:transparent;outline:none;width:100%;min-width:0;
+  font-family:var(--font-body);font-size:13px;color:var(--ink);
+}
+.search input::placeholder{color:var(--ink-3)}
+
+.nav{flex:1;overflow-y:auto;overflow-x:hidden;margin:0 -8px;padding:0 8px 8px;scrollbar-width:thin}
+.nav-group{margin-bottom:16px}
+.nav-group-head{
+  display:flex;align-items:baseline;gap:8px;
+  padding:0 6px 5px;cursor:default;
+}
+.nav-group-head .n{
+  font-family:var(--font-mono);font-size:10px;color:var(--ink-3);letter-spacing:.08em;
+}
+.nav-group-head .t{
+  font-size:11px;font-weight:700;letter-spacing:.13em;color:var(--ink-3);text-transform:uppercase;
+}
+.nav-link{
+  display:grid;grid-template-columns:34px minmax(0,1fr) 12px;
+  align-items:start;gap:7px;
+  width:100%;text-align:left;
+  background:none;border:0;cursor:pointer;
+  padding:5px 6px;border-radius:7px;
+  font-size:13px;line-height:1.45;color:var(--ink-2);
+  transition:background .12s,color .12s;
+}
+.nav-link:hover{background:var(--surface-2);color:var(--ink)}
+.nav-link .idx{
+  font-family:var(--font-mono);font-size:9.5px;color:var(--ink-3);padding-top:4px;white-space:nowrap;
+}
+.nav-link.active{background:var(--accent-soft);color:var(--accent-ink);font-weight:500}
+.nav-link.active .idx{color:var(--accent)}
+.nav-link .tick{color:var(--accent);font-size:11px;padding-top:3px;opacity:0}
+.nav-link.done .tick{opacity:1}
+.nav-empty{font-size:12px;color:var(--ink-3);padding:10px 6px}
+
+.rail-foot{
+  border-top:1px solid var(--line);padding-top:13px;
+  display:flex;flex-direction:column;gap:9px;
+}
+.prog-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.prog-label{font-size:11px;color:var(--ink-3);letter-spacing:.04em}
+.prog-num{font-family:var(--font-mono);font-size:11px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.prog-bar{height:4px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.prog-fill{height:100%;background:var(--accent);border-radius:99px;transition:width .3s ease}
+.rail-links{display:flex;gap:6px;flex-wrap:wrap}
+.rail-links button{
+  flex:1;min-width:0;
+  background:var(--surface);border:1px solid var(--line);border-radius:7px;
+  padding:6px 4px;font-size:11.5px;color:var(--ink-2);cursor:pointer;
+  transition:.12s;
+}
+.rail-links button:hover{border-color:var(--line-2);color:var(--ink)}
+.rail-links button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* ---------- main ---------- */
+.main{min-width:0;padding:0 0 90px 40px}
+.topbar{display:none}
+
+.wrap{max-width:820px}
+.eyebrow{
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--accent);font-weight:500;margin-bottom:10px;
+}
+
+/* home */
+.hero{padding:52px 0 8px}
+.hero h1{font-size:clamp(30px,4.6vw,44px);font-weight:700;letter-spacing:-.01em;line-height:1.2}
+.hero .lede{margin-top:16px;font-size:16px;color:var(--ink-2);max-width:56ch;line-height:1.8}
+.hero .meta{
+  margin-top:20px;display:flex;flex-wrap:wrap;gap:8px 18px;
+  font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:.03em;
+}
+.hero .meta b{color:var(--ink-2);font-weight:500}
+
+.strip{
+  margin-top:30px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;
+}
+.stat{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:13px 15px;
+}
+.stat .k{font-size:11px;color:var(--ink-3);letter-spacing:.05em}
+.stat .v{font-family:var(--font-mono);font-size:23px;font-weight:500;margin-top:2px;font-variant-numeric:tabular-nums}
+.stat .v small{font-size:12px;color:var(--ink-3);font-family:var(--font-body);font-weight:400}
+
+.block{margin-top:52px}
+.block-head{display:flex;align-items:baseline;gap:12px;margin-bottom:5px}
+.block-head .num{
+  font-family:var(--font-mono);font-size:11px;color:var(--accent);
+  border:1px solid var(--accent);border-radius:4px;padding:0 5px;line-height:1.6;
+}
+.block-head h2{font-size:21px;font-weight:700}
+.block-sub{font-size:13.5px;color:var(--ink-3);margin-bottom:20px;max-width:60ch}
+
+.path{display:grid;gap:0}
+.path-item{
+  display:grid;grid-template-columns:36px minmax(0,1fr) auto;
+  gap:14px;align-items:start;
+  padding:13px 0;border-bottom:1px solid var(--line);
+  text-align:left;background:none;border-left:0;border-right:0;border-top:0;
+  cursor:pointer;width:100%;color:inherit;
+}
+.path-item:last-child{border-bottom:0}
+.path-item:hover .path-title{color:var(--accent)}
+.path-item .step{
+  font-family:var(--font-mono);font-size:11px;color:var(--ink-3);
+  padding-top:4px;font-variant-numeric:tabular-nums;
+}
+.path-item .t{display:block;min-width:0}
+.path-title{display:block;font-size:15px;font-weight:700;transition:color .12s}
+.path-desc{display:block;font-size:13px;color:var(--ink-2);margin-top:2px;line-height:1.6}
+.path-tag{
+  font-family:var(--font-mono);font-size:10px;color:var(--ink-3);
+  border:1px solid var(--line);border-radius:4px;padding:2px 6px;white-space:nowrap;margin-top:3px;
+}
+
+.chapters{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.ch-card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:18px 18px 16px;text-align:left;cursor:pointer;color:inherit;
+  display:flex;flex-direction:column;gap:6px;
+  transition:border-color .15s,transform .15s,box-shadow .15s;
+}
+.ch-card:hover{border-color:var(--line-2);transform:translateY(-2px);box-shadow:var(--shadow)}
+.ch-card .n{font-family:var(--font-mono);font-size:10.5px;color:var(--accent);letter-spacing:.1em}
+.ch-card .ch-title{display:block;font-family:var(--font-display);font-size:16.5px;font-weight:700;line-height:1.35}
+.ch-card .ch-sub{display:block;font-size:12.5px;color:var(--ink-3);line-height:1.6}
+.ch-card .count{
+  margin-top:6px;font-family:var(--font-mono);font-size:10px;color:var(--ink-3);
+}
+
+.note{
+  background:var(--gold-soft);border:1px solid color-mix(in srgb,var(--gold) 26%,transparent);
+  border-radius:var(--r);padding:16px 18px;font-size:13.5px;line-height:1.75;color:var(--ink-2);
+}
+.note b{color:var(--ink)}
+.note h3{font-size:14px;margin-bottom:7px;color:var(--ink)}
+.note ul{margin:8px 0 0;padding-left:18px}
+.note li{margin-bottom:4px}
+
+/* lesson */
+.lesson{padding-top:34px;max-width:760px}
+.lesson .crumb{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.06em;
+  margin-bottom:14px;
+}
+.lesson .crumb .sep{opacity:.5}
+.lesson h1{font-size:clamp(25px,3.6vw,33px);font-weight:700;letter-spacing:-.005em}
+.lesson .lede{
+  margin-top:13px;font-size:16px;color:var(--ink-2);line-height:1.75;
+  padding-left:15px;border-left:2px solid var(--accent);
+}
+.lesson .body-text{margin-top:20px;font-size:15px;color:var(--ink-2);line-height:1.85;max-width:62ch}
+
+.sub-head{
+  display:flex;align-items:center;gap:9px;margin:34px 0 14px;
+}
+.sub-head .lbl{
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);
+}
+.sub-head .rule{flex:1;height:1px;background:var(--line)}
+.sub-head .cnt{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-3)}
+
+.steps{list-style:none;margin:0;padding:0;counter-reset:s;display:grid;gap:16px}
+.steps li{
+  counter-increment:s;
+  display:grid;grid-template-columns:25px minmax(0,1fr);gap:14px;
+  font-size:14.5px;line-height:1.8;color:var(--ink);
+}
+.steps li::before{
+  content:counter(s,decimal-leading-zero);
+  font-family:var(--font-mono);font-size:10.5px;color:var(--accent);
+  border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);
+  border-radius:50%;width:25px;height:25px;
+  display:flex;align-items:center;justify-content:center;
+  margin-top:3px;
+}
+.steps li b{font-weight:700}
+
+.pitfalls{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+.pitfalls li{
+  background:var(--danger-soft);
+  border-left:2px solid var(--danger);
+  border-radius:0 8px 8px 0;
+  padding:10px 14px;font-size:13.5px;line-height:1.7;color:var(--ink);
+}
+.pitfalls li b{color:var(--danger);font-weight:700}
+
+.quote{
+  margin:30px 0 0;
+  background:var(--gold-soft);
+  border:1px solid color-mix(in srgb,var(--gold) 24%,transparent);
+  border-radius:var(--r);
+  padding:17px 19px 15px;
+}
+.quote .en{
+  font-size:13.5px;line-height:1.75;color:var(--ink);
+  font-style:italic;
+}
+.quote .zh{
+  margin-top:9px;font-size:13px;line-height:1.75;color:var(--ink-2);
+}
+.quote .src{
+  margin-top:11px;padding-top:9px;
+  border-top:1px solid color-mix(in srgb,var(--gold) 22%,transparent);
+  font-family:var(--font-mono);font-size:10.5px;color:var(--gold);letter-spacing:.03em;
+}
+
+.gap-note{
+  margin-top:18px;padding:13px 16px;border-radius:9px;
+  background:var(--surface-2);font-size:13px;line-height:1.7;color:var(--ink-2);
+}
+.gap-note b{color:var(--ink)}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.chip{
+  background:var(--surface);border:1px solid var(--line);border-radius:99px;
+  padding:4px 12px;font-size:12.5px;color:var(--ink-2);cursor:pointer;
+  transition:.12s;
+}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+
+.lesson-foot{
+  margin-top:38px;padding-top:22px;border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
+}
+.btn-done{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent);color:#fff;border:0;border-radius:9px;
+  padding:9px 18px;font-size:13.5px;font-weight:500;cursor:pointer;
+  transition:.15s;
+}
+.btn-done:hover{background:var(--accent-ink)}
+.btn-done.done{background:var(--surface);color:var(--accent);border:1px solid var(--accent)}
+.pager{display:flex;gap:8px;flex-wrap:wrap}
+.pager button{
+  background:var(--surface);border:1px solid var(--line);border-radius:9px;
+  padding:8px 14px;font-size:12.5px;color:var(--ink-2);cursor:pointer;
+  transition:.12s;max-width:210px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.pager button:hover{border-color:var(--line-2);color:var(--ink)}
+
+/* map */
+.map-wrap{max-width:none;margin-top:8px}
+.map-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+#map{display:block;min-width:900px;width:100%;height:auto;color:var(--ink)}
+#map .box{fill:var(--surface);stroke:var(--line-2);stroke-width:1;transition:stroke .12s}
+#map .node:hover .box{stroke:var(--accent)}
+#map .node.done .box{stroke:var(--accent);stroke-width:1.4}
+#map .bar{fill:var(--accent)}
+#map .edge{stroke:var(--ink-3);stroke-opacity:.3;stroke-width:1.2;transition:stroke-opacity .12s}
+#map .edge.on{stroke:var(--accent);stroke-opacity:.9;stroke-width:2}
+#map .edge.dim{stroke-opacity:.06}
+#map .node{transition:opacity .12s}
+.map-legend{
+  display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;
+  font-size:12px;color:var(--ink-3);
+}
+.map-legend span{display:inline-flex;align-items:center;gap:6px}
+.map-legend i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.map-tip{
+  margin-top:16px;font-size:13px;color:var(--ink-2);line-height:1.7;
+}
+
+/* drills table */
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
+th{
+  text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;white-space:nowrap;
+  position:sticky;top:0;background:var(--surface);z-index:1;
+}
+td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.6}
+tr:last-child td{border-bottom:0}
+tbody tr{cursor:pointer;transition:background .1s}
+tbody tr:hover{background:var(--surface-2)}
+td.id{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-3);white-space:nowrap;font-variant-numeric:tabular-nums}
+td.name{font-weight:700;white-space:nowrap}
+td.one{color:var(--ink-2)}
+td.ch{font-size:11.5px;color:var(--ink-3);white-space:nowrap}
+
+.scrim{
+  display:none;position:fixed;inset:0;background:rgba(10,16,13,.45);z-index:40;
+}
+.scrim.on{display:block}
+
+@media (max-width:900px){
+  .shell{grid-template-columns:minmax(0,1fr);display:block}
+  .main{padding:0}
+  .rail{
+    position:fixed;inset:0 auto 0 0;
+    width:min(304px,86vw);
+    height:100%;
+    padding:max(18px,env(safe-area-inset-top,0px)) 18px max(18px,env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px));
+    background:var(--surface);
+    border-right:1px solid var(--line);
+    z-index:50;
+    transform:translateX(-102%);
+    transition:transform .22s ease;
+    box-shadow:0 0 40px rgba(0,0,0,.18);
+  }
+  .rail.open{transform:none}
+  .topbar{
+    display:flex;align-items:center;gap:12px;
+    position:sticky;top:env(safe-area-inset-top,0px);z-index:20;
+    padding:10px 0 9px;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+    margin-bottom:2px;
+  }
+  .topbar button{
+    display:flex;align-items:center;gap:7px;
+    background:var(--surface);border:1px solid var(--line);border-radius:8px;
+    padding:7px 11px;font-size:12.5px;color:var(--ink-2);cursor:pointer;flex:none;
+  }
+  .topbar .now{
+    font-size:13px;font-weight:500;color:var(--ink);
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;
+  }
+  .hero{padding-top:34px}
+  .lesson{padding-top:22px}
+  .block{margin-top:42px}
+}
+@media (max-width:520px){
+  body{font-size:15px}
+  .path-item{grid-template-columns:30px minmax(0,1fr)}
+  .path-tag{display:none}
+  .lesson-foot{flex-direction:column;align-items:stretch}
+  .pager button{flex:1;max-width:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+
+<div class="scrim" id="scrim"></div>
+<div class="shell">
+  <aside class="rail" id="rail">
+    <div class="brand">
+      <div class="mark">Ian Dunbar · 幼犬训练体系</div>
+      <h1>Chichi 训练手册</h1>
+      <div class="sub">22 集讲义整理 · 泰迪幼犬</div>
+    </div>
+
+    <label class="search" for="q">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="搜索技巧、问题…" autocomplete="off">
+    </label>
+
+    <nav class="nav" id="nav" aria-label="课程目录"></nav>
+
+    <div class="rail-foot">
+      <div>
+        <div class="prog-row">
+          <span class="prog-label">学习进度</span>
+          <span class="prog-num" id="progNum">0 / 30</span>
+        </div>
+        <div class="prog-bar" style="margin-top:7px"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+      </div>
+      <div class="rail-links">
+        <button data-view="home" id="navHome">总览</button>
+        <button data-view="map" id="navMap">知识地图</button>
+        <button data-view="drills" id="navDrills">速查</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <div class="topbar">
+      <button id="menuBtn" aria-label="打开目录">☰ 目录</button>
+      <div class="now" id="nowTitle">总览</div>
+    </div>
+    <div id="view"></div>
+  </main>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------------- data ---------------- */
+
+var CHAPTERS = [
+  {id:"c1", num:"01", title:"方法", sub:"动手之前，先把训练观立住"},
+  {id:"c2", num:"02", title:"接狗之前", sub:"8 周之前发生的事决定了 8 岁以后"},
+  {id:"c3", num:"03", title:"到家第一周", sub:"两个空间，一套无错流程"},
+  {id:"c4", num:"04", title:"核心技能", sub:"诱导、Premack、坐下、召回、吠叫"},
+  {id:"c5", num:"05", title:"Chichi 专项", sub:"2.5 个月泰迪的当下问题"}
+];
+
+var L = [
+/* ---- c1 ---- */
+{
+  id:"l1-1", ch:"c1", title:"先训练你自己",
+  lede:"训练本身不难。难的是在碰狗之前，你知不知道自己在做什么。",
+  body:"Dunbar 把这件事排在所有内容之前。他的原话是：幼犬教育中最重要的方面，是你对幼犬教育的教育。训练方法本身很简单，但用错方法练得越久，坏习惯越牢。",
+  steps:[
+    "先读完方法，再开始训练。<b>不要边训边想。</b>",
+    "只用有科学依据的<b>诱导—奖励法</b>（lure & reward）。不用恐吓、不用疼痛、不用「当老大」那套。",
+    "把训练理解成<b>教一门语言</b>，不是发号施令。狗不懂中文，也不懂英文。"
+  ],
+  pitfalls:[
+    "把「狗不听话」当成态度问题。多数时候是它没学过，或者你教错了。",
+    "在没搞懂奖励时机的情况下开始练。奖励晚三秒，狗就不知道自己做对了什么。"
+  ],
+  quote:{
+    en:"The most important aspect about puppy education is your education about puppy education. Puppy training is really quite easy, but you have to know how to do it… you have to educate yourself before you can educate your puppy.",
+    zh:"幼犬教育中最重要的方面，是你对幼犬教育的教育。训练本身很容易，但你得知道怎么做……你必须先教育自己，才能教育你的狗。",
+    src:"#006 · 你的幼犬教育"
+  },
+  tags:["心态","方法"],
+  related:["l1-2","l4-1"]
+},
+{
+  id:"l1-2", ch:"c1", title:"训练的三个阶段",
+  lede:"先教它听懂，再让它想做，最后才是「必须」。顺序错了，全程都在对抗。",
+  body:"Dunbar 把训练拆成三个阶段。多数人直接从第三阶段开始——下命令、不听话就加压——所以永远在原地打转。",
+  steps:[
+    "<b>阶段一 · 教语言。</b>用食物在手里诱导，让口令和动作连起来。他说坐下「6 到 10 次就懂了」。",
+    "<b>阶段二 · 让它想做。</b>用 Premack 原理，把狗本来就爱做的事接在你要求的事后面。这一步做完，惩罚很少需要出场。",
+    "<b>阶段三 · 无暴力的坚持。</b>只有少数安全底线（比如门线：门开着不能跨出去，那是生死问题）需要强制执行，靠冷静而重复的坚持，不靠音量。"
+  ],
+  pitfalls:[
+    "跳过阶段一直接下命令。狗听不懂，你只会把口令重复到发火。",
+    "用阶段三解决一切。那是最后手段，不是起点。"
+  ],
+  quote:{
+    en:"The first stage is basically teaching a dog ESL… The second stage in training is to teach the dog to want to do what we want him to do… And now we move to phase three… 'Because I'm the daddy, that's why.'",
+    zh:"第一阶段基本上是教狗一门第二语言……第二阶段是让它想做我们想让它做的事……然后才进入第三阶段：「因为我是爸爸，就这么定了。」",
+    src:"#001 · Dog-friendly dog training"
+  },
+  tags:["框架"],
+  related:["l4-1","l4-2","l1-5"]
+},
+{
+  id:"l1-3", ch:"c1", title:"反馈是二元的",
+  lede:"做对了就说好，做错了就纠正或转移。中间没有模糊地带。",
+  body:"Dunbar 说人对动物的反馈有两个毛病：出现得太少，而且出现时都是坏的。我们把好的当成理所当然，只在出问题时才有反应。",
+  steps:[
+    "做对 → <b>立刻</b>说「好孩子」并给奖励。",
+    "做错 → 立刻纠正，或者把它转移到一件它能做对的事上。",
+    "不要沉默。沉默对狗来说不是「中性」，是「你不在」。"
+  ],
+  pitfalls:[
+    "只在出错时才有反应。狗学到的是：安静没人理，捣乱才有你。",
+    "事后算账。三分钟后再骂，狗记不住自己干了什么。"
+  ],
+  quote:{
+    en:"The feedback to the dog is binary. When he gets it right, tell him good boy. And when he gets it wrong, then hey, correct him or redirect him.",
+    zh:"对狗的反馈是二元的。它做对了，就告诉它好孩子；它做错了，就纠正它或者转移它。",
+    src:"#003 · Effective Dog Training"
+  },
+  tags:["反馈"],
+  related:["l1-4"]
+},
+{
+  id:"l1-4", ch:"c1", title:"奖励要差分，不要平均",
+  lede:"只有高于平时的表现才值得奖励。最好的表现配最好的奖励。",
+  body:"这一条决定了训练能不能一直进步。如果每次都奖，狗的表现会停在「及格」；如果按固定节奏发奖，训练会变成发工资。",
+  steps:[
+    "先立一条<b>及格线</b>：普通表现不奖。",
+    "更好的表现 → 更好的奖励（更香的零食、更多次数、更快的放行）。",
+    "偶尔的巅峰表现 → <b>jackpot</b>：一连串奖励，让它记住这一次。",
+    "结果：学习一直在继续，狗一直在往上走。"
+  ],
+  pitfalls:[
+    "连续强化（每次都奖）。Dunbar 的原话是「你会养出一个被宠坏的孩子」。",
+    "用固定比例或固定间隔发奖。他说全世界的训犬师没有一个会这么干。"
+  ],
+  quote:{
+    en:"Only above average responses are rewarded. Better responses get better rewards. And the best responses get the best rewards — jackpots. Then the learning is ever learning. The dog is always improving.",
+    zh:"只有高于平均的反应才被奖励。更好的反应得到更好的奖励。最好的反应得到最好的奖励——头奖。这样学习才是持续的学习，狗一直在进步。",
+    src:"#003 · Effective Dog Training"
+  },
+  tags:["奖励"],
+  related:["l1-3","l4-2"]
+},
+{
+  id:"l1-5", ch:"c1", title:"惩罚不必可怕",
+  lede:"惩罚的定义是「让刚才的行为变少」，跟痛不痛、吓不吓人没有关系。",
+  body:"这是整套体系里最容易被误解的一条。既然不痛也能起作用，那就不该痛。",
+  steps:[
+    "用<b>冷静、一致的重复</b>代替音量：「Rover, sit. No, sit. Sit.」",
+    "案例：一只咬伤过全家（两个主人、姐夫、孩子）的狗，在厨房做 4.5 小时 down-stay。它打破了 22 次，主人一次都没提高声音，只是重复「on the mat」。打断次数越来越少。",
+    "判断标准只有一个：<b>那个行为有没有变少。</b>变了，就是惩罚；没变，就只是你在发泄。"
+  ],
+  pitfalls:[
+    "吼。原文：「它可不是一只可以吼的狗」——吼会换来咬。",
+    "把惩罚等同于疼痛或惊吓。那只是最差的一种实现方式。"
+  ],
+  quote:{
+    en:"A punishment is a stimulus that reduces the immediately preceding behavior, such that it's less likely to occur in the future. It does not have to be nasty, scary or painful. And I would say, if it doesn't have to be, then maybe it shouldn't be.",
+    zh:"惩罚是一种刺激，它减少紧接在它前面的那个行为，让那个行为以后更少发生。它不必是恶劣的、可怕的或疼痛的。我想说：既然不必，那也许就不该。",
+    src:"#001 · Dog-friendly dog training"
+  },
+  tags:["惩罚"],
+  related:["l1-6"]
+},
+{
+  id:"l1-6", ch:"c1", title:"别惩罚它不知道的规则",
+  lede:"人最常干的三件事：定人的规则、对狗保密、然后为违反规则惩罚它。",
+  body:"Dunbar 用扑人这件事讲透了这个逻辑。幼犬扑到你腿上，你弯下腰摸着说「好孩子」——你在奖励扑人。它的唯一罪过是它长大了，变成了 80 磅的藏獒。",
+  steps:[
+    "先想清楚你要的行为是什么，然后<b>把它教出来</b>。",
+    "扑人的正解：先教坐下，再给坐下的理由。而不是抓前爪、踩后脚、喷柠檬汁、卷报纸打头、膝盖顶胸、掀翻。原文称这一整套为「insanity」。",
+    "记住：它做的正是你曾经奖励过的动作。"
+  ],
+  pitfalls:[
+    "相信「alpha / 支配」那套。原文称之为「对一个复杂社会系统的米老鼠式解读」。",
+    "因为狗长大而惩罚它。"
+  ],
+  quote:{
+    en:"Number one, by making up rules, human rules… Number two, we keep these rules a secret from the dog. And then number three, now we can punish the dog for breaking rules he didn't even know existed.",
+    zh:"第一，制定规则，人的规则……第二，我们对狗保密这些规则。第三，现在我们可以因为它违反了它根本不知道存在的规则而惩罚它。",
+    src:"#001 · Dog-friendly dog training"
+  },
+  tags:["惩罚","常见误区"],
+  related:["l1-5","l4-3"]
+},
+{
+  id:"l1-7", ch:"c1", title:"收容所是被制造出来的",
+  lede:"一条几乎固定的失败链条，每一步都可预防。",
+  body:"这是整套体系的动机。Dunbar 反复说同一句话：收容所的狗不是天生的，是被造出来的。",
+  steps:[
+    "8 周接回家，没社会化、没如厕训练、没啃咬玩具训练。",
+    "在家里犯如厕和啃咬的错 → 被赶到院子里。",
+    "在院子里学会挖洞、吠叫、逃跑。",
+    "邻居投诉吠叫 → 被关进地下室或车库。",
+    "在车库里毁掉一切 → 最终进收容所。"
+  ],
+  pitfalls:[
+    "「等它如厕训练好了再放屋里」。原文讽刺：好像院子里有棵聪明的灌木会帮你训狗。",
+    "拖。原文说，到 3 个月大时，狗身上已经钉了「两三颗棺材钉」：如厕错误、啃咬错误、独处吠叫、分离焦虑。"
+  ],
+  quote:{
+    en:"Shelter dogs are made not born. We don't want this to happen to your dogs though. Please don't raise another shelter dog.",
+    zh:"收容所的狗是被造出来的，不是天生的。我们不希望这发生在你的狗身上。请不要养出另一只收容所的狗。",
+    src:"#004 · 欢迎来到训练教材"
+  },
+  tags:["背景"],
+  related:["l3-1","l3-6"]
+},
+
+/* ---- c2 ---- */
+{
+  id:"l2-1", ch:"c2", title:"8 周：最优时间点",
+  lede:"8 周接狗最好，但你要先空出一到两个月专门做教育。",
+  body:"太早接，它还没跟妈妈和兄弟姐妹学够「狗的语言」；太晚接，社会化窗口关得太快。8 周是两头都能兼顾的点。",
+  steps:[
+    "<b>8 周前：</b>和妈妈、兄弟姐妹玩够，学会狗之间的分寸。",
+    "<b>8 周接回：</b>距离社会化关键期结束还有 4–5 周，刚好用来和你建立联结。",
+    "<b>接之前：</b>先留出 1–2 个月专门做教育。原文：没有这段时间，就别接狗。"
+  ],
+  pitfalls:[
+    "没留时间就接狗。训练是每天的事，不是周末的事。",
+    "以为「小的时候先玩，长大再训」。所有训练都是越早越容易。"
+  ],
+  quote:{
+    en:"Eight weeks is generally the best time… they've had sufficient time playing with mum and the little mates to learn to become dog savvy, but now they've got four or five weeks to bond with their new owners before the critical period of socialization ends.",
+    zh:"8 周通常是最好的时间……它们已经和妈妈、兄弟姐妹玩够了，学会了狗的分寸；同时还有四到五周可以和新主人建立联结，赶在社会化关键期结束之前。",
+    src:"#011 · 什么时候接狗"
+  },
+  tags:["时机"],
+  related:["l2-4","l4-6"]
+},
+{
+  id:"l2-2", ch:"c2", title:"从哪里接：只看这 8 周",
+  lede:"血统和长相都不重要，重要的是它出生后这 8 周是怎么过的。",
+  body:"Dunbar 的原话很狠：8 周时如果没社会化、没训练，不管血统证书多长，你买到的都是一颗「柠檬」。",
+  steps:[
+    "<b>好来源：</b>室内养大、有固定厕所位、有啃咬玩具、很多人抱过并教过基本礼貌。",
+    "<b>差来源：</b>犬舍养大、没有厕所。它已经学会到处大小便，回家照做。",
+    "接的时候最好已经会：如厕、啃咬玩具、社会化、基本礼貌。"
+  ],
+  pitfalls:[
+    "只看血统和长相，不看这 8 周的经历。",
+    "以为回家再补。原文说那是「你已经在追赶了」。"
+  ],
+  quote:{
+    en:"Most important thing is that the puppy has been raised indoors, he's been raised with a doggy toilet, he's been raised with chew toys and he's been raised with lots of people around who are handling him and teaching him basic manners.",
+    zh:"最重要的是：这只幼犬是在室内养大的，有狗厕所，有啃咬玩具，周围有很多人抱它、教它基本礼貌。",
+    src:"#012 · 从哪里接狗"
+  },
+  tags:["选狗"],
+  related:["l2-4"]
+},
+{
+  id:"l2-3", ch:"c2", title:"挑繁殖者：只看长寿",
+  lede:"唯一真正重要的指标，是这一系的狗能活多久。",
+  body:"长寿是身体健康、性格稳定、行为问题少的最好指标。看成年狗，不看幼犬——幼犬都会可爱。",
+  steps:[
+    "问祖父母、曾祖父母、曾曾祖父母活到多少岁。",
+    "看<b>成年狗</b>：它们要有趣、友好、性格好、好训练。",
+    "要几个前买家的联系方式，去他们家聊上几个小时，问他们买狗和养狗的真实经历。"
+  ],
+  pitfalls:[
+    "只和幼犬互动。幼犬看不出问题，成年狗才看得出。",
+    "只看证书。证书不告诉你这一系的狗活多久。"
+  ],
+  quote:{
+    en:"Longevity is basically the best indicator that the puppy is physically healthy, that the strain is free of behavior and temperament problems.",
+    zh:"长寿基本上是最好的指标，说明这只幼犬身体健康，这一系没有行为和性情问题。",
+    src:"#014 · 怎么挑繁殖者"
+  },
+  tags:["选狗"],
+  related:["l2-4"]
+},
+{
+  id:"l2-4", ch:"c2", title:"挑幼犬：两个测试",
+  lede:"先测它已经学了什么，再测它好不好教。",
+  body:"第一个测试看它前 8 周的教育，第二个测试看你回家以后会不会很痛苦。两个都可以当场做完。",
+  steps:[
+    "<b>测试一 · 教育程度：</b>会啃咬玩具吗？如厕训练吗？笼里有厕所和塞食玩具吗？8 周前见过多少人——尤其<b>男人、小孩、陌生人</b>？",
+    "<b>测试二 · 可操作性：</b>抱起来、开嘴、看眼睛、看耳朵、抱一抱。",
+    "<b>测试三 · 可训练性：</b>当场教它 come / sit / down。现在难，回家也难；现在容易，回家也容易。"
+  ],
+  pitfalls:[
+    "只看它乖不乖。乖和可训练是两件事。",
+    "在它兴奋或害怕时测。先让它平静下来再测。"
+  ],
+  quote:{
+    en:"Is he chew toy trained, is he house trained, do you see a toilet in the kennel, do you see stuffed chew toys in the kennel? Is he socialized — how many people has this puppy seen before he's 8 weeks old, especially men and children and strangers?",
+    zh:"它会用啃咬玩具吗？如厕训练过吗？笼子里看得到厕所吗？看得到塞食玩具吗？社会化了吗——8 周前它见过多少人，尤其是男人、小孩和陌生人？",
+    src:"#015 · 怎么挑一只好幼犬"
+  },
+  tags:["选狗"],
+  related:["l2-1","l2-2"]
+},
+{
+  id:"l2-5", ch:"c2", title:"品种与混血",
+  lede:"这是个人选择，但先做功课，而且要做好十几年的准备。",
+  body:"Dunbar 说得很直白：选狗像选伴侣，人类用的标准是「三个 C」——毛色、体型、可爱。这个标准撑不过第一年。",
+  steps:[
+    "问养这种狗的人、繁殖者、兽医。",
+    "<b>试驾：</b>亲手牵它走、叫它、抱它、让它翻肚皮。",
+    "纯种更可预测长相和性格；混血要等长大才知道。",
+    "想清楚：这是 16–18 年的投资。"
+  ],
+  pitfalls:[
+    "冲长相决定。",
+    "只问繁殖者。繁殖者会卖给你狗，养这种狗的人才会告诉你问题。"
+  ],
+  quote:{
+    en:"By all means talk to a lot of people. Above all talk to owners of dogs… but most important probably test drive a few dogs. Handle them. Do they heel nicely, do they come, can you hug them, can you get them to roll over?",
+    zh:"一定要多问人。最重要的是问养狗的人……但最有用的可能是先试驾几只狗。亲手摆弄它们：走得跟不跟脚，叫不叫得回，能不能抱，能不能让它翻肚皮。",
+    src:"#009 · 哪种狗"
+  },
+  tags:["选狗"],
+  related:["l2-3"]
+},
+{
+  id:"l2-6", ch:"c2", title:"购物清单：六样，没有食盆",
+  lede:"「不需要食盆」是故意的——每一顿饭都应该是训练机会。",
+  body:"Dunbar 的清单很短，但每一样都有用途。食盆被划掉，是因为它让一天两顿饭在 30 秒内结束，浪费了几十次奖励机会。",
+  steps:[
+    "笼子、水碗、<b>大量</b>可塞食物的空心啃咬玩具、项圈、牵引绳、舒服的床。",
+    "不买食盆。前几个月<b>所有食物都塞进啃咬玩具</b>，让它变成「啃咬玩具成瘾者」。",
+    "剩下的食物由家人手喂，顺手练 come / sit / down / roll over。"
+  ],
+  pitfalls:[
+    "用食盆。狗几秒钟吃完，你损失了每天最好的训练素材。",
+    "只买一两个玩具。要「大量」，因为要塞、要冷冻、要轮换。"
+  ],
+  quote:{
+    en:"You need a crate, you need a water bowl, you need lots of hollow chew toys that you can stuff with food, you need a collar, you need a leash, you need a comfortable bed. But you don't need a food bowl.",
+    zh:"你需要一个笼子、一个水碗、大量可以塞食物的空心啃咬玩具、一个项圈、一条牵引绳、一张舒服的床。但你不需要食盆。",
+    src:"#016 · 购物清单"
+  },
+  tags:["装备"],
+  related:["l3-4","l4-5"]
+},
+
+/* ---- c3 ---- */
+{
+  id:"l3-1", ch:"c3", title:"无错误原则",
+  lede:"不是犯错后纠正，是根本不给犯错的机会。",
+  body:"这是整套方法的地基。Dunbar 说得很绝对：一个如厕错误会变成十个，然后变成习惯，然后你要花几倍时间去拆掉它。",
+  steps:[
+    "从进门<b>第一分钟</b>就开始。",
+    "用空间管理（笼子、围栏）代替「盯着它」。人盯不住狗。",
+    "记住：好习惯和坏习惯一样难改。既然一样难，就从第一天开始建好的。"
+  ],
+  pitfalls:[
+    "「它还小，长大就好了」。Dunbar 的答案是不好，只会更难。",
+    "犯错后惩罚。惩罚教不会正确行为，只会让它躲着你做。"
+  ],
+  quote:{
+    en:"You cannot allow this puppy to make one mistake. If he makes one house training mistake, one chewing mistake, there's going to be 10 more, and soon you're going to have a bad habit.",
+    zh:"你不能让这只幼犬犯哪怕一个错误。一个如厕错误、一个啃咬错误，就会变成十个，很快你就有一个坏习惯了。",
+    src:"#018 · 到家第一周"
+  },
+  tags:["核心原则"],
+  related:["l3-2","l1-7"]
+},
+{
+  id:"l3-2", ch:"c3", title:"两个空间：围栏与笼子",
+  lede:"你不在用围栏，你在家用笼子。这是两件不同的工具，不是同一个东西的大小号。",
+  body:"Dunbar 的划分非常清楚。围栏是「你脱不开身」时的保险，笼子是真正的训练工具——因为你在场，你能奖励。",
+  steps:[
+    "<b>围栏（你不在家）：</b>床 + 新鲜水 + 狗厕所 + 塞食玩具。",
+    "<b>笼子（你在家）：</b>床 + 塞食玩具。<b>没有水，没有厕所。</b>",
+    "围栏的三个目的：防止在家犯错、教它玩玩具、教它用厕所。",
+    "笼子的三个目的：防止犯错、让它变成啃咬玩具成瘾者、<b>每小时可预测排泄</b>。"
+  ],
+  pitfalls:[
+    "笼子里放厕所。狗天生不在窝里排泄，放了就毁掉这条本能。",
+    "把围栏当训练工具。围栏里它能自己解决，但你不在场，没法奖励——那只是管理，不是训练。",
+    "笼子买太大。大了它会把一半当厕所。买成年尺寸加隔板，幼犬期收到「刚好站-转-躺」。"
+  ],
+  quote:{
+    en:"When you're away from home you want to confine him in his puppy playpen… When you're at home you want to confine the puppy to his doggie den, say a dog crate. And the only things in it are a comfortable bed and chew toys stuffed with food.",
+    zh:"你不在家时，把它关在幼犬围栏里……你在家时，把它关在它的狗窝里，比如一个笼子。里面只有一张舒服的床和塞了食物的啃咬玩具。",
+    src:"#019 · 幼犬游戏室与狗窝"
+  },
+  tags:["空间","装备"],
+  related:["l3-3","l3-4","l3-5"]
+},
+{
+  id:"l3-3", ch:"c3", title:"如厕 1-2-3",
+  lede:"笼子让你能预测，预测让你能下口令，能下口令才能奖励。奖励才是关键。",
+  body:"这套流程的名字叫「无错式如厕训练」。核心不是憋尿，是把「尿」变成一个你能精确预测、并且能立刻奖励的事件。",
+  steps:[
+    "<b>你在家：</b>把狗关进笼子，一小时一节。",
+    "<b>整点放出来：</b>牵着<b>小跑</b>去厕所（小跑会晃膀胱），一边跑一边说「go pee go poop」。",
+    "<b>一分钟内完成 → 立刻</b>给三个最香的零食 + 大声夸。",
+    "<b>没完成 → 不骂</b>，放回笼子，半小时后再试。",
+    "<b>你要离开超过一小时 →</b>必须留厕所（用围栏，不是笼子）。"
+  ],
+  pitfalls:[
+    "等它自己憋不住。那叫事故，不叫训练。",
+    "尿完才带去厕所。顺序反了，它学到的是「在外面尿完会被带到厕所」。",
+    "奖励太慢。要在一分钟内，最好在它刚站起来的那一刻。"
+  ],
+  quote:{
+    en:"Confining the puppy to his crate allows you to predict when he wants to go, which makes house training very easy, and it allows you to train your puppy to go on command.",
+    zh:"把幼犬关在笼子里，让你能预测它什么时候想上厕所，这让如厕训练变得非常容易，也让你能训练它听口令上厕所。",
+    src:"#020 · 无错如厕训练"
+  },
+  tags:["如厕"],
+  related:["l3-2","l4-5"]
+},
+{
+  id:"l3-4", ch:"c3", title:"啃咬玩具训练",
+  lede:"不给自由，它就会把整个家当玩具；给对了玩具，它会自己教自己。",
+  body:"幼犬眼里，一切皆可咬。所以不是「教它别咬沙发」，是「让啃咬玩具成为唯一值得咬的东西」。",
+  steps:[
+    "空心玩具塞狗粮，可以泡软、冷藏、冷冻（冷冻更耐啃）。",
+    "<b>你在家：</b>笼子里只有床和塞食玩具。",
+    "<b>你不在：</b>围栏里也一样，玩具是唯一好玩的东西。",
+    "每漏出一粒食物，都在奖励两件事：咬这个玩具，以及<b>安静躺着不叫</b>。"
+  ],
+  pitfalls:[
+    "只给玩具，不收走别的。自由活动的时间里，沙发和电线也是「玩具」。",
+    "玩具一次全给。轮换着给，保持新鲜感。"
+  ],
+  quote:{
+    en:"Everything a puppy sees is chew toy… Since there's nothing much else to do, this will train the puppy to train himself to chew his chew toy.",
+    zh:"幼犬看到的一切都是啃咬玩具……既然没有别的事可做，这就会训练幼犬自己训练自己去咬它的啃咬玩具。",
+    src:"#021 · 无错啃咬玩具训练"
+  },
+  tags:["啃咬"],
+  related:["l3-2","l4-5","l2-6"]
+},
+{
+  id:"l3-5", ch:"c3", title:"让它想进笼子",
+  lede:"笼子要变成它自己想去的地方，不是关它的地方。",
+  body:"这一招很短，但效果最戏剧化。关键是门什么时候开——只在它想进去的时候开。",
+  steps:[
+    "当着狗的面把食物塞进玩具。",
+    "让它<b>闻一下</b>。",
+    "把玩具放进笼子，关上门——<b>狗在外面</b>。",
+    "它会急得想进去（Dunbar 原话：它们会疯掉，像是在说「让我进去」）。",
+    "这时开门。几秒内它就会趴下安静啃玩具。"
+  ],
+  pitfalls:[
+    "抱进去、推进去。那是在教它「笼子是被迫的」。",
+    "在它叫的时候开门。门只在它想进的时候开，不在它闹的时候开。"
+  ],
+  quote:{
+    en:"I like to let the puppy sniff it, and I put it in his dog crate, and I shut the door but with the puppy on the outside. And the puppies, they go crazy, like 'hey, what are you doing, let me in my crate.' Then you open the door, and in they go.",
+    zh:"我喜欢让幼犬闻一闻，然后把它放进笼子，关上门——但把幼犬留在外面。幼犬会急疯，像在说「喂，你干嘛，让我进我的笼子」。然后你开门，它们就进去了。",
+    src:"#021 · 无错啃咬玩具训练"
+  },
+  tags:["笼子"],
+  related:["l3-2","l3-6"]
+},
+{
+  id:"l3-6", ch:"c3", title:"独处训练",
+  lede:"你唯一能教它独处的时间，是你在的时候。",
+  body:"这是所有训练里最反直觉的一条：不能等到要出门才练独处。那时候笼子等于「你消失」，必然焦虑。要在你在家、心情好的时候练。",
+  steps:[
+    "你在家时，<b>专门安排</b>「关起来」的时段。",
+    "阶梯：笼子在你旁边 → 笼子在隔壁房间。原文只给了这两级，但每一级都可以再拆小。",
+    "每次进笼或围栏，都给 <b>1–3 个</b>塞食玩具。",
+    "通常 3–4 天，狗就会主动想进笼子玩玩具。",
+    "结果：它有了自己的「爱好」，独处时有事情做，不需要你。"
+  ],
+  pitfalls:[
+    "只在你要出门时才关它。那笼子=你消失，必然焦虑。",
+    "一上来就关到另一个房间。跳级会失败，失败了要重来，而且会留下阴影。",
+    "走的时候隆重告别。走就是走，回来就是回来，越平淡越好。"
+  ],
+  quote:{
+    en:"The only time you can prepare a puppy for your absence is when you're there… now he's confined to his dog crate first in the same room as you, then in different rooms.",
+    zh:"你唯一能训练幼犬适应你不在的时间，就是你在的时候……现在它被关在笼子里，先和你同一个房间，然后换到不同的房间。",
+    src:"#022 · 独自在家"
+  },
+  tags:["独处"],
+  related:["l3-5","l5-2","l4-5"]
+},
+{
+  id:"l3-7", ch:"c3", title:"第一个月：四件事同时走",
+  lede:"不是做完一件再做下一件，是每天同时推进。",
+  body:"Dunbar 列的第一月清单有四项，加一项基础礼貌。它们互相支撑：如厕训练靠笼子，笼子靠塞食玩具，塞食玩具让独处变得可能。",
+  steps:[
+    "继续如厕训练。",
+    "继续啃咬玩具训练。",
+    "独处准备。",
+    "社会化——<b>3 个月前完成</b>，在家里做。",
+    "开始基础礼貌（come / sit / down / roll over）。"
+  ],
+  pitfalls:[
+    "排队做。社会化有截止日期，其他没有，所以它优先级最高。",
+    "等疫苗打完再社会化。那时候窗口已经关了。"
+  ],
+  quote:{
+    en:"You've got to continue your errorless house training, chew toy training programs, and you've got to prepare your puppy for being left at home alone. You've got to socialize your puppy… and we've got to start teaching some basic manners.",
+    zh:"你要继续无错如厕训练、啃咬玩具训练，还要为它独自在家做准备。你要让它社会化……还要开始教一些基础礼貌。",
+    src:"#023 · 到家第一个月"
+  },
+  tags:["节奏"],
+  related:["l4-6","l3-6"]
+},
+
+/* ---- c4 ---- */
+{
+  id:"l4-1", ch:"c4", title:"诱导—奖励法",
+  lede:"第一阶段不是下命令，是教它「这个词是什么意思」。",
+  body:"Dunbar 的类比是 ESL：你对着一个不懂中文的人喊「坐下」，他不会坐。狗也一样。所以先用食物把动作和声音绑在一起，再撤掉食物。",
+  steps:[
+    "食物拿在手里，做出引导动作，<b>同时</b>说口令。",
+    "6–10 次，口令和动作就连上了。",
+    "逐渐撤掉手里的食物，只留口令。",
+    "最后可以下复合指令：「Phoenix, come here, take this, and go to Jamie」。"
+  ],
+  pitfalls:[
+    "在狗屁股后面做手势，或者在它背后重复「sit, sit, sit」。",
+    "奖励太慢。动作完成和奖励之间超过一两秒，狗就不知道奖励的是哪件事。",
+    "一次教太多。先一个口令，稳了再加下一个。"
+  ],
+  quote:{
+    en:"The dog doesn't speak English, or American, or Spanish, or French. So the first stage in training is to teach the dog ESL, English as a second language. And that's how we use the food lure in the hand.",
+    zh:"狗不说英语、美语、西班牙语，也不说法语。所以训练的第一阶段是教狗一门第二语言。这就是我们在手里用食物诱导的原因。",
+    src:"#001 · Dog-friendly dog training"
+  },
+  tags:["基础"],
+  related:["l1-2","l4-2","l4-3"]
+},
+{
+  id:"l4-2", ch:"c4", title:"Premack 原理：把干扰变成奖励",
+  lede:"把狗最想做的事，变成你要求它做的事的奖励。",
+  body:"这是整套体系里最优雅的一招。公园里那只不听召唤的狗，问题不是它坏，是环境比你有意思。Premack 把环境变成你的奖励池。",
+  steps:[
+    "找一个它<b>超爱做</b>的事：闻屁股、上沙发、被揉肚子、扔球、和别的狗打招呼。",
+    "先要求一个低频行为（坐下）。",
+    "立刻放行那个高频行为。",
+    "结果：所有干扰都变成了奖励。原文说，狗会以为「我只要坐下，他们什么都干」。"
+  ],
+  pitfalls:[
+    "只用零食。零食会腻，狗的兴趣不会。",
+    "在它已经兴奋到听不见时下指令。先把刺激强度降下来。",
+    "把奖励和惩罚混着用。Premack 的前提是它真的想要那个东西。"
+  ],
+  quote:{
+    en:"We follow a low-frequency behavior — one the dog doesn't want to do — by a high-frequency behavior, commonly known as a behavior problem, or a dog hobby. That will then become a reward for the lower-frequency behavior.",
+    zh:"我们让一个低频行为——狗不太想做的——后面紧跟一个高频行为，也就是通常所说的行为问题，或者狗的爱好。那个高频行为就成了低频行为的奖励。",
+    src:"#001 · Dog-friendly dog training"
+  },
+  tags:["奖励","基础"],
+  related:["l1-4","l4-1","l4-4"]
+},
+{
+  id:"l4-3", ch:"c4", title:"坐下",
+  lede:"扑人问题的答案不是惩罚，是先教它坐下，再给坐下的理由。",
+  body:"Dunbar 问主人「你希望狗怎么跟你打招呼」，答案通常是「坐着吧」。那就教坐下——而不是在它扑人时想办法让它难受。",
+  steps:[
+    "用食物诱导：从鼻尖往上、往后移，屁股自然落地。",
+    "落地的那一瞬间说「sit」并奖励。",
+    "撤掉诱导，只留口令。",
+    "用 Premack 给坐下的理由：坐下 → 开门 / 上沙发 / 打招呼 / 扔球。"
+  ],
+  pitfalls:[
+    "用 Dunbar 列的那套：抓前爪、踩后脚、柠檬汁喷脸、卷报纸打头、膝盖顶胸、掀翻。原文称之为「insanity」。",
+    "只在它有求于你时才要求坐下，其他时候不管。一致性是奖励生效的前提。"
+  ],
+  quote:{
+    en:"I ask owners, 'Well, how would you like the dog to greet you?' And people say, 'Well, I don't know, to sit, I guess.' I said, 'Let's teach him to sit.' And then we give him a reason for sitting.",
+    zh:"我问主人：「你希望狗怎么跟你打招呼？」他们说：「不知道，坐着吧。」我说：「那我们就教它坐下。」然后我们给它一个坐下的理由。",
+    src:"#001 · Dog-friendly dog training"
+  },
+  tags:["技能"],
+  related:["l1-6","l4-2","l4-1"]
+},
+{
+  id:"l4-4", ch:"c4", title:"召回",
+  lede:"狗不回来，通常是因为「回来」从来不是好事。",
+  body:"Dunbar 讲了两件最典型的事：在公园里喊到发火，狗一回来就被抓住做 ugly face；或者叫回来只是为了结束玩耍、戴上牵引绳。两种都在教它「别回来」。",
+  steps:[
+    "用诱导 + 奖励：叫名字 → 给食物 → 狗到 → 奖励。",
+    "只在你有把握它会来时叫。<b>叫了不来，就是在训练「叫了可以不来」。</b>",
+    "叫回来之后，永远不要做它讨厌的事（关笼、剪指甲、结束玩耍）。",
+    "要结束玩耍时：先叫回来 → 奖励 → 再结束。顺序反过来就毁掉召回了。"
+  ],
+  pitfalls:[
+    "在公园里和「闻屁股」竞争。原文：环境永远赢。",
+    "叫回来再惩罚。那是在训练它别回来。",
+    "一天叫二十次。口令会被稀释，只在需要时用。"
+  ],
+  quote:{
+    en:"The dog doesn't want to come, and then when it does come they grab it and do ugly face… Who in their right mind would think that a dog would want to approach them when they're screaming like that?",
+    zh:"狗不想过来，等它真过来了，他们一把抓住它做那副凶脸……哪个脑子正常的人会觉得，一个人那样尖叫时狗会想靠近他？",
+    src:"#001 · Dog-friendly dog training"
+  },
+  tags:["技能"],
+  related:["l4-2","l1-3"]
+},
+{
+  id:"l4-5", ch:"c4", title:"吠叫：一个具体解法",
+  lede:"不是「当老大」，是让嘴和胃同时忙起来。",
+  body:"Dunbar 用这件事当反例：人们想要抽象的「领导力」，却不要具体方案。他给的是一个可以在厨房里做完的动作。",
+  steps:[
+    "称出<b>一天份</b>的狗粮。",
+    "泡软，塞进空心啃咬玩具。",
+    "冷藏或冷冻。",
+    "出门前给它。",
+    "嘴忙着，漏出来的每一粒食物都在奖励安静。"
+  ],
+  pitfalls:[
+    "相信「狗叫是因为它想当老大」。原文的反问：那你要领导它叫什么？汪汪汪吗？",
+    "只在它叫的时候才给。那是在奖励叫。"
+  ],
+  quote:{
+    en:"Moisten, weigh out his kibble for the day, moisten it, stuff it into chew toys, put them in the fridge, freeze them, give them to the dog when you're at work, and you'll find the number of barks per day has reduced by 90%.",
+    zh:"把一天份的狗粮称出来，泡软，塞进啃咬玩具，放冰箱冷冻，上班时给狗。你会发现每天的吠叫次数减少了 90%。",
+    src:"#003 · Effective Dog Training"
+  },
+  tags:["技能","独处"],
+  related:["l3-4","l3-6"]
+},
+{
+  id:"l4-6", ch:"c4", title:"社会化",
+  lede:"3 个月前必须完成，而且要在家里做。",
+  body:"这是整套体系里唯一有硬截止日期的事。窗口一关，后面所有训练都要绕路走。",
+  steps:[
+    "在<b>3 个月大之前</b>完成。",
+    "在家里做（疫苗没打完之前，别带出去）。",
+    "见的人要包括：<b>男人、小孩、陌生人</b>——原文在挑选幼犬那一集里点名了这三类。",
+    "每次见面都配好事：食物、玩具、游戏。"
+  ],
+  pitfalls:[
+    "等疫苗打完再社会化。那时候窗口已经关了。",
+    "只让它见同一种人。社会化是「见过足够多样的东西」，不是「见过很多人」。",
+    "在它害怕时强迫接近。那是在教它「人很可怕」。"
+  ],
+  quote:{
+    en:"You have to socialize your puppy, and that has to be done at home… you've got to do this before he's 3 months old, so you've got to do this at home too.",
+    zh:"你必须让幼犬社会化，而且这件事要在家里做……你必须在它 3 个月大之前完成，所以也只能在家里做。",
+    src:"#017 · 第二章：养一只幼犬"
+  },
+  tags:["社会化"],
+  related:["l3-7","l2-1","l4-7"]
+},
+{
+  id:"l4-7", ch:"c4", title:"咬手：只有原则，没有步骤",
+  lede:"Dunbar 说这是最重要的一项，但现有字幕里只有一句话。",
+  body:"在「第二章」那集的收尾，他把咬手抑制排在所有事情之上：你必须教幼犬不用牙齿伤人。但具体怎么做，这一集没有展开。",
+  steps:[
+    "原则：教它<b>不用牙齿伤人</b>，在幼犬期做，越早越好。",
+    "时间窗口和其他训练一样：越老越难。"
+  ],
+  pitfalls:[
+    "用手当玩具。那是在教它手可以咬。",
+    "等它换牙再说。那时候咬的力度已经定型了。"
+  ],
+  quote:{
+    en:"Most important of all, you've got to teach your puppy bite inhibition. You must teach your puppy not to hurt with his teeth.",
+    zh:"最重要的是，你必须教幼犬咬合抑制。你必须教它不要用牙齿伤人。",
+    src:"#017 · 第二章：养一只幼犬"
+  },
+  tags:["技能"],
+  related:["l4-6"],
+  gap:"这一集字幕里没有具体步骤。对应的方法视频（#024 与人社会化、#025 喜欢人）抓取字幕时被 YouTube 拦截，资料里没有。"
+},
+
+/* ---- c5 ---- */
+{
+  id:"l5-1", ch:"c5", title:"Chichi 的现状判断",
+  lede:"2.5 个月的泰迪，离开人就叫。这个年龄，这是正常的。",
+  body:"2.5 个月大约是 10 周。按 Dunbar 的时间表，你正好在「社会化窗口内」和「独处训练应该开始」的交叉点上。好消息是还来得及，坏消息是不能再等。",
+  steps:[
+    "<b>年龄：</b>10 周左右。社会化必须在 13 周前完成。",
+    "<b>行为：</b>「离开人就叫」不是性格问题，是它还没学过独处。它从出生起就一直有人或同窝的狗在身边。",
+    "<b>目标不是让它不叫</b>，是让它有事可做。叫是无聊和不安的结果，不是原因。",
+    "<b>优先级：</b>社会化 > 独处 > 如厕 > 啃咬 > 礼貌。前两个有截止日期。"
+  ],
+  pitfalls:[
+    "在它叫的时候回去。那是在奖励叫。",
+    "把它关到另一个房间「让它哭够」。2.5 个月是恐惧最容易固化的年龄。",
+    "以为「长大自然就好了」。Dunbar 的原话是反过来的：坏习惯一样难改。"
+  ],
+  quote:{
+    en:"If your puppy has become used to having unrestricted access to you, then he's gonna fall apart when you're gone.",
+    zh:"如果你的幼犬习惯了随时随地都能找到你，那你一走它就会崩溃。",
+    src:"#022 · 独自在家"
+  },
+  tags:["Chichi"],
+  related:["l5-2","l3-6"]
+},
+{
+  id:"l5-2", ch:"c5", title:"独处阶梯",
+  lede:"把「同房间 → 不同房间」拆成能每天走一级的台阶。",
+  body:"Dunbar 原文只给了两级。下面这个拆法是按他的逻辑展开的：每一步都小到几乎不会失败，失败了就退回上一级。",
+  steps:[
+    "<b>第 1 级 · 白天笼子：</b>笼子放在你旁边，塞食玩具，一次一小时，整点放出来上厕所。做 2–3 天。",
+    "<b>第 2 级 · 换房间：</b>笼子移到隔壁房间，门开着，5 分钟 → 15 分钟。",
+    "<b>第 3 级 · 关门：</b>1 分钟 → 5 → 15 → 30。每次都给塞食玩具。",
+    "<b>第 4 级 · 出门：</b>先出门 5 分钟、10 分钟，再到 30 分钟。",
+    "<b>第 5 级 · 夜间：</b>窝先放你床边 → 睡熟后移到卧室门口 → 再到走廊。每次只挪一小步。"
+  ],
+  pitfalls:[
+    "跳级。看起来浪费时间的那几级，是在建立「你会回来」的预期。",
+    "叫的时候开门。等它安静下来，哪怕只有两秒，再开门。",
+    "白天不练，只在晚上练。晚上你困了，没耐心，容易失败。"
+  ],
+  quote:{
+    en:"Set aside times when the puppy is confined to his puppy playroom. Now he's confined to his dog crate, first in the same room as you, then in different rooms.",
+    zh:"专门安排一些时间，把幼犬关在它的游戏室里。现在它被关在笼子里，先和你同一个房间，然后换到不同的房间。",
+    src:"#022 · 独自在家"
+  },
+  tags:["Chichi","独处"],
+  related:["l3-6","l5-3","l3-5"],
+  gap:"夜间睡眠的具体做法资料里没有。第 5 级是按「同房间 → 不同房间」的逻辑推出来的，不是原文。"
+},
+{
+  id:"l5-3", ch:"c5", title:"出门吃饭清单",
+  lede:"走之前十分钟做完这些，第一次控制在半小时内。",
+  body:"第一次离开的目标不是「它不叫」，是「它在你走后能自己安静下来」。第一次成功比第一次坚持更重要。",
+  steps:[
+    "提前 30 分钟带它上一次厕所。",
+    "塞 2–3 个冷冻的塞食玩具，放进围栏（不是笼子——超过一小时需要厕所位）。",
+    "围栏里留新鲜的水。",
+    "走的时候<b>不告别</b>，回来的时候<b>不激动</b>。",
+    "回来先等它安静，再开门。",
+    "第一次 20–30 分钟，成功后每次加 15 分钟。"
+  ],
+  pitfalls:[
+    "出门前和它玩到兴奋。兴奋之后突然消失，落差最大。",
+    "回来一开门就抱起来亲。那是在奖励它等你。",
+    "第一次就去吃两小时。失败一次，要退回去重练。"
+  ],
+  quote:{
+    en:"Make sure every time you put the puppy into his dog crate or in his puppy playpen, you give him one, two or three chew toys stuffed with food. This usually only takes like three or four days.",
+    zh:"确保每次把幼犬放进笼子或围栏时，都给它一到三个塞了食物的啃咬玩具。通常只要三四天就见效。",
+    src:"#022 · 独自在家"
+  },
+  tags:["Chichi","独处"],
+  related:["l5-2","l3-4"]
+}
+];
+
+var byId = {};
+L.forEach(function(x){ byId[x.id] = x; });
+CHAPTERS.forEach(function(c){
+  c.lessons = L.filter(function(x){ return x.ch === c.id; });
+});
+
+/* ---------------- progress ---------------- */
+
+var KEY = "chichi.progress.v1";
+var done = {};
+try{
+  var raw = localStorage.getItem(KEY);
+  if(raw) done = JSON.parse(raw) || {};
+}catch(e){ done = {}; }
+
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(done)); }catch(e){}
+}
+
+function isDone(id){ return !!done[id]; }
+
+function paintProgress(){
+  var n = L.filter(function(x){ return isDone(x.id); }).length;
+  var el = document.getElementById("progNum");
+  var fill = document.getElementById("progFill");
+  if(el) el.textContent = n + " / " + L.length;
+  if(fill) fill.style.width = (n / L.length * 100) + "%";
+}
+
+/* ---------------- helpers ---------------- */
+
+function esc(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+function chOf(id){
+  var l = byId[id];
+  if(!l) return null;
+  return CHAPTERS.filter(function(c){ return c.id === l.ch; })[0];
+}
+function lessonNum(l){
+  var c = chOf(l.id);
+  var i = c.lessons.indexOf(l) + 1;
+  return c.num + "." + (i < 10 ? "0" + i : i);
+}
+function allLessonsInOrder(){
+  var out = [];
+  CHAPTERS.forEach(function(c){ out = out.concat(c.lessons); });
+  return out;
+}
+
+/* ---------------- nav ---------------- */
+
+var navEl = document.getElementById("nav");
+var qEl = document.getElementById("q");
+var currentView = "home";
+var currentId = null;
+
+function renderNav(){
+  var q = (qEl.value || "").trim().toLowerCase();
+  var html = "";
+  CHAPTERS.forEach(function(c){
+    var items = c.lessons.filter(function(l){
+      if(!q) return true;
+      var hay = (l.title + " " + l.lede + " " + l.tags.join(" ") + " " + (l.body||"")).toLowerCase();
+      return hay.indexOf(q) >= 0;
+    });
+    if(q && !items.length) return;
+    html += '<div class="nav-group">';
+    html += '<div class="nav-group-head"><span class="n">' + c.num + '</span><span class="t">' + esc(c.title) + '</span></div>';
+    if(!items.length){
+      html += '<div class="nav-empty">没有匹配的课</div>';
+    }
+    items.forEach(function(l){
+      var active = (currentView === "lesson" && currentId === l.id) ? " active" : "";
+      var dn = isDone(l.id) ? " done" : "";
+      html += '<button class="nav-link' + active + dn + '" data-id="' + l.id + '">' +
+              '<span class="idx">' + lessonNum(l) + '</span>' +
+              '<span class="t">' + esc(l.title) + '</span>' +
+              '<span class="tick">✓</span>' +
+              '</button>';
+    });
+    html += '</div>';
+  });
+  if(!html) html = '<div class="nav-empty">没有匹配的课。换个词试试。</div>';
+  navEl.innerHTML = html;
+  Array.prototype.forEach.call(navEl.querySelectorAll(".nav-link"), function(b){
+    b.addEventListener("click", function(){
+      go("lesson", b.getAttribute("data-id"));
+      closeRail();
+    });
+  });
+}
+
+/* ---------------- views ---------------- */
+
+var viewEl = document.getElementById("view");
+var nowTitle = document.getElementById("nowTitle");
+
+function setNow(t){
+  if(nowTitle) nowTitle.textContent = t;
+  document.title = t ? t + " · Chichi 训练手册" : "Chichi 训练手册";
+}
+
+function renderHome(){
+  var total = L.length;
+  var n = L.filter(function(x){ return isDone(x.id); }).length;
+
+  var path = [
+    ["l1-2","训练的三个阶段","先搞懂框架，后面每一步都靠它"],
+    ["l1-5","惩罚不必可怕","先停掉吼和恐吓"],
+    ["l3-2","两个空间：围栏与笼子","先把笼子和围栏摆对"],
+    ["l3-5","让它想进笼子","笼子变成它想去的地方"],
+    ["l3-3","如厕 1-2-3","笼子的第一个用途"],
+    ["l3-4","啃咬玩具训练","塞食玩具是独处的地基"],
+    ["l3-6","独处训练","同房间 → 不同房间"],
+    ["l5-2","独处阶梯","给 Chichi 的具体台阶"],
+    ["l5-3","出门吃饭清单","第一次出门怎么走"]
+  ];
+
+  var h = '';
+  h += '<div class="wrap">';
+  h += '<header class="hero">';
+  h += '<div class="eyebrow">Ian Dunbar · 22 集讲义整理</div>';
+  h += '<h1>Chichi 训练手册</h1>';
+  h += '<p class="lede">把一套幼犬训练体系拆成 30 节课。每一节只有一个原理、几步做法、几个坑，以及原文出处。可以按顺序读，也可以随便点。</p>';
+  h += '<div class="meta"><span>对象 <b>2.5 个月泰迪</b></span><span>资料 <b>22 份字幕</b></span><span>结构 <b>5 章 · 30 课</b></span></div>';
+  h += '</header>';
+
+  h += '<div class="strip">';
+  h += '<div class="stat"><div class="k">课程</div><div class="v">' + total + '</div></div>';
+  h += '<div class="stat"><div class="k">已学</div><div class="v">' + n + '<small> / ' + total + '</small></div></div>';
+  h += '<div class="stat"><div class="k">硬截止</div><div class="v">13<small> 周龄 · 社会化</small></div></div>';
+  h += '<div class="stat"><div class="k">独处见效</div><div class="v">3–4<small> 天</small></div></div>';
+  h += '</div>';
+
+  h += '<section class="block">';
+  h += '<div class="block-head"><span class="num">→</span><h2>从哪开始</h2></div>';
+  h += '<p class="block-sub">按 Chichi 现在的年龄和问题排的顺序。每一条都可以点开。</p>';
+  h += '<div class="path">';
+  path.forEach(function(p, i){
+    var l = byId[p[0]];
+    h += '<button class="path-item" data-id="' + p[0] + '">' +
+         '<span class="step">' + (i+1 < 10 ? "0"+(i+1) : i+1) + '</span>' +
+         '<span class="t"><span class="path-title">' + esc(p[1]) + '</span>' +
+         '<span class="path-desc">' + esc(p[2]) + '</span></span>' +
+         '<span class="path-tag">' + lessonNum(l) + '</span>' +
+         '</button>';
+  });
+  h += '</div>';
+  h += '</section>';
+
+  h += '<section class="block">';
+  h += '<div class="block-head"><span class="num">§</span><h2>五章</h2></div>';
+  h += '<p class="block-sub">第一章是方法，后面四章是方法的应用。前两章读一遍就够，第三章要反复查。</p>';
+  h += '<div class="chapters">';
+  CHAPTERS.forEach(function(c){
+    var d = c.lessons.filter(function(l){ return isDone(l.id); }).length;
+    h += '<button class="ch-card" data-ch="' + c.id + '">' +
+         '<span class="n">第 ' + c.num + ' 章</span>' +
+         '<span class="ch-title">' + esc(c.title) + '</span>' +
+         '<span class="ch-sub">' + esc(c.sub) + '</span>' +
+         '<span class="count">' + d + ' / ' + c.lessons.length + ' 课已学</span>' +
+         '</button>';
+  });
+  h += '</div>';
+  h += '</section>';
+
+  h += '<section class="block">';
+  h += '<div class="note">';
+  h += '<h3>关于资料的两处缺口</h3>';
+  h += '<ul>';
+  h += '<li><b>#007 发育优先级</b>：字幕时间轴重叠，无法使用。</li>';
+  h += '<li><b>#024 与人社会化、#025 喜欢人</b>：YouTube 拦截了抓取请求，没有拿到字幕。所以「社会化」和「咬手抑制」两节只有原则，没有具体步骤。</li>';
+  h += '<li><b>夜间睡眠</b>：Dunbar 这套视频没讲。第五章的夜间部分是按他的「同房间 → 不同房间」逻辑推出来的，已在课内标注。</li>';
+  h += '</ul>';
+  h += '</div>';
+  h += '</section>';
+
+  h += '</div>';
+  viewEl.innerHTML = h;
+
+  Array.prototype.forEach.call(viewEl.querySelectorAll(".path-item"), function(b){
+    b.addEventListener("click", function(){ go("lesson", b.getAttribute("data-id")); });
+  });
+  Array.prototype.forEach.call(viewEl.querySelectorAll(".ch-card"), function(b){
+    b.addEventListener("click", function(){
+      var c = CHAPTERS.filter(function(x){ return x.id === b.getAttribute("data-ch"); })[0];
+      if(c && c.lessons.length) go("lesson", c.lessons[0].id);
+    });
+  });
+
+  setNow("");
+  currentView = "home"; currentId = null;
+  renderNav(); paintProgress();
+}
+
+function renderLesson(id){
+  var l = byId[id];
+  if(!l){ renderHome(); return; }
+  var c = chOf(id);
+  var idx = allLessonsInOrder().indexOf(l);
+  var all = allLessonsInOrder();
+  var prev = idx > 0 ? all[idx-1] : null;
+  var next = idx < all.length-1 ? all[idx+1] : null;
+  var dn = isDone(l.id);
+
+  var h = '<article class="lesson">';
+  h += '<div class="crumb"><span>' + c.num + ' ' + esc(c.title) + '</span><span class="sep">/</span><span>' + lessonNum(l) + '</span></div>';
+  h += '<h1>' + esc(l.title) + '</h1>';
+  h += '<p class="lede">' + esc(l.lede) + '</p>';
+  if(l.body) h += '<p class="body-text">' + esc(l.body) + '</p>';
+
+  h += '<div class="sub-head"><span class="lbl">做法</span><span class="rule"></span><span class="cnt">' + l.steps.length + ' 步</span></div>';
+  h += '<ol class="steps">';
+  l.steps.forEach(function(s){ h += '<li><span>' + s + '</span></li>'; });
+  h += '</ol>';
+
+  h += '<div class="sub-head"><span class="lbl">坑</span><span class="rule"></span><span class="cnt">' + l.pitfalls.length + ' 条</span></div>';
+  h += '<ul class="pitfalls">';
+  l.pitfalls.forEach(function(s){ h += '<li>' + s + '</li>'; });
+  h += '</ul>';
+
+  if(l.quote){
+    h += '<div class="quote">';
+    h += '<p class="en">“' + esc(l.quote.en) + '”</p>';
+    h += '<p class="zh">' + esc(l.quote.zh) + '</p>';
+    h += '<div class="src">' + esc(l.quote.src) + '</div>';
+    h += '</div>';
+  }
+
+  if(l.gap){
+    h += '<div class="gap-note"><b>资料缺口：</b>' + esc(l.gap) + '</div>';
+  }
+
+  if(l.related && l.related.length){
+    h += '<div class="sub-head"><span class="lbl">相关</span><span class="rule"></span></div>';
+    h += '<div class="chips">';
+    l.related.forEach(function(rid){
+      var r = byId[rid];
+      if(!r) return;
+      h += '<button class="chip" data-id="' + rid + '">' + lessonNum(r) + ' ' + esc(r.title) + '</button>';
+    });
+    h += '</div>';
+  }
+
+  h += '<div class="lesson-foot">';
+  h += '<button class="btn-done' + (dn ? " done" : "") + '" id="doneBtn">' + (dn ? "✓ 已学完" : "标记为已学") + '</button>';
+  h += '<div class="pager">';
+  if(prev) h += '<button data-id="' + prev.id + '">← ' + esc(prev.title) + '</button>';
+  if(next) h += '<button data-id="' + next.id + '">' + esc(next.title) + ' →</button>';
+  h += '</div>';
+  h += '</div>';
+  h += '</article>';
+
+  viewEl.innerHTML = h;
+
+  document.getElementById("doneBtn").addEventListener("click", function(){
+    if(isDone(l.id)) delete done[l.id]; else done[l.id] = true;
+    save();
+    renderLesson(l.id);
+    renderNav();
+    paintProgress();
+  });
+  Array.prototype.forEach.call(viewEl.querySelectorAll(".chip,.pager button"), function(b){
+    b.addEventListener("click", function(){ go("lesson", b.getAttribute("data-id")); });
+  });
+
+  setNow(l.title);
+  currentView = "lesson"; currentId = id;
+  renderNav();
+  window.scrollTo(0,0);
+}
+
+function renderMap(){
+  var NW = 176, NH = 40, GAPX = 58, GAPY = 14, PADX = 28, PADY = 56;
+  var colX = {};
+  CHAPTERS.forEach(function(c,i){ colX[c.id] = PADX + i*(NW+GAPX); });
+
+  var maxRows = 0;
+  CHAPTERS.forEach(function(c){ if(c.lessons.length > maxRows) maxRows = c.lessons.length; });
+  var W = PADX + CHAPTERS.length*(NW+GAPX) - GAPX + PADX;
+  var H = PADY + maxRows*(NH+GAPY) + 24;
+
+  var pos = {};
+  CHAPTERS.forEach(function(c){
+    c.lessons.forEach(function(l,i){
+      pos[l.id] = { x: colX[c.id], y: PADY + i*(NH+GAPY), ch: c.id };
+    });
+  });
+
+  var svg = '<svg id="map" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="技巧之间的关联图">';
+  svg += '<g id="edges">';
+  var seen = {};
+  L.forEach(function(l){
+    (l.related||[]).forEach(function(rid){
+      var a = pos[l.id], b = pos[rid];
+      if(!a || !b) return;
+      var key = l.id + ">" + rid;
+      var rkey = rid + ">" + l.id;
+      if(seen[rkey]) return;
+      seen[key] = true;
+      var d;
+      if(a.ch === b.ch){
+        var y1 = a.y + NH/2, y2 = b.y + NH/2;
+        var ci = 0;
+        CHAPTERS.forEach(function(c,k){ if(c.id === a.ch) ci = k; });
+        var dir = ci < 2 ? 1 : -1;
+        var ex = dir > 0 ? a.x + NW : a.x;
+        var cx = ex + dir*30;
+        d = "M" + ex + "," + y1 + " C" + cx + "," + y1 + " " + cx + "," + y2 + " " + ex + "," + y2;
+      } else {
+        var sx = a.x + NW, sy = a.y + NH/2;
+        var tx = b.x, ty = b.y + NH/2;
+        var off = Math.max(24, Math.abs(tx-sx)*0.35);
+        d = "M" + sx + "," + sy + " C" + (sx+off) + "," + sy + " " + (tx-off) + "," + ty + " " + tx + "," + ty;
+      }
+      svg += '<path class="edge" data-a="' + l.id + '" data-b="' + rid + '" d="' + d + '" fill="none"/>';
+    });
+  });
+  svg += '</g>';
+
+  CHAPTERS.forEach(function(c){
+    svg += '<text x="' + colX[c.id] + '" y="28" fill="var(--ink-3)" font-family="IBM Plex Mono,monospace" font-size="10.5" letter-spacing="1.4">第 ' + c.num + ' 章</text>';
+    svg += '<text x="' + colX[c.id] + '" y="45" fill="var(--ink)" font-family="Noto Serif SC,serif" font-size="13" font-weight="600">' + esc(c.title) + '</text>';
+  });
+
+  svg += '<g id="nodes">';
+  L.forEach(function(l){
+    var p = pos[l.id];
+    var dn = isDone(l.id);
+    svg += '<g class="node' + (dn ? " done" : "") + '" data-id="' + l.id + '" tabindex="0" role="button" style="cursor:pointer">';
+    svg += '<rect class="box" x="' + p.x + '" y="' + p.y + '" width="' + NW + '" height="' + NH + '" rx="8"/>';
+    if(dn) svg += '<rect class="bar" x="' + p.x + '" y="' + (p.y+1) + '" width="3.5" height="' + (NH-2) + '" rx="1.75"/>';
+    svg += '<text x="' + (p.x+13) + '" y="' + (p.y+16) + '" fill="var(--ink-3)" font-family="IBM Plex Mono,monospace" font-size="9">' + lessonNum(l) + '</text>';
+    svg += '<text x="' + (p.x+13) + '" y="' + (p.y+30) + '" fill="var(--ink)" font-family="Noto Sans SC,sans-serif" font-size="12.5" font-weight="500">' + esc(l.title) + '</text>';
+    svg += '</g>';
+  });
+  svg += '</g>';
+  svg += '</svg>';
+
+  var h = '<div class="map-wrap">';
+  h += '<header class="hero" style="padding-top:34px">';
+  h += '<div class="eyebrow">知识地图</div>';
+  h += '<h1 style="font-size:clamp(24px,3.4vw,32px)">技巧之间的依赖</h1>';
+  h += '<p class="lede" style="font-size:15px">每一条线是一次「相关」跳转。点任意一张卡就能跳过去。左栏是方法，越往右越是执行细节。</p>';
+  h += '</header>';
+  h += '<div class="map-scroll">' + svg + '</div>';
+  h += '<div class="map-legend">';
+  CHAPTERS.forEach(function(c){
+    h += '<span><i style="background:var(--line-2)"></i>' + c.num + ' ' + esc(c.title) + '</span>';
+  });
+  h += '</div>';
+  h += '<p class="map-tip">悬停或点选一张卡，会高亮它所有的连线。带绿色左边条的课表示已经标记为已学。</p>';
+  h += '</div>';
+
+  viewEl.innerHTML = h;
+
+  var nodes = viewEl.querySelectorAll(".node");
+  var edges = viewEl.querySelectorAll(".edge");
+  function highlight(id){
+    Array.prototype.forEach.call(edges, function(e){
+      var on = (e.getAttribute("data-a") === id || e.getAttribute("data-b") === id);
+      e.classList.toggle("on", on);
+      e.classList.toggle("dim", !on);
+    });
+    Array.prototype.forEach.call(nodes, function(n){
+      n.style.opacity = (n.getAttribute("data-id") === id) ? "1" : "0.45";
+    });
+  }
+  function clear(){
+    Array.prototype.forEach.call(edges, function(e){
+      e.classList.remove("on");
+      e.classList.remove("dim");
+    });
+    Array.prototype.forEach.call(nodes, function(n){ n.style.opacity = "1"; });
+  }
+  Array.prototype.forEach.call(nodes, function(n){
+    n.addEventListener("mouseenter", function(){ highlight(n.getAttribute("data-id")); });
+    n.addEventListener("mouseleave", clear);
+    n.addEventListener("click", function(){ go("lesson", n.getAttribute("data-id")); });
+    n.addEventListener("keydown", function(ev){
+      if(ev.key === "Enter" || ev.key === " "){ ev.preventDefault(); go("lesson", n.getAttribute("data-id")); }
+    });
+  });
+
+  setNow("知识地图");
+  currentView = "map"; currentId = null;
+  renderNav();
+}
+
+function renderDrills(){
+  var h = '<div class="map-wrap">';
+  h += '<header class="hero" style="padding-top:34px">';
+  h += '<div class="eyebrow">速查</div>';
+  h += '<h1 style="font-size:clamp(24px,3.4vw,32px)">全部 30 课</h1>';
+  h += '<p class="lede" style="font-size:15px">一行一条。想找某个具体问题时从这里扫最快。</p>';
+  h += '</header>';
+  h += '<div class="table-scroll"><table><thead><tr><th>编号</th><th>名称</th><th>一句话</th><th>章</th></tr></thead><tbody>';
+  L.forEach(function(l){
+    var c = chOf(l.id);
+    h += '<tr data-id="' + l.id + '">' +
+         '<td class="id">' + lessonNum(l) + (isDone(l.id) ? ' ✓' : '') + '</td>' +
+         '<td class="name">' + esc(l.title) + '</td>' +
+         '<td class="one">' + esc(l.lede) + '</td>' +
+         '<td class="ch">' + esc(c.title) + '</td>' +
+         '</tr>';
+  });
+  h += '</tbody></table></div></div>';
+  viewEl.innerHTML = h;
+  Array.prototype.forEach.call(viewEl.querySelectorAll("tbody tr"), function(tr){
+    tr.addEventListener("click", function(){ go("lesson", tr.getAttribute("data-id")); });
+  });
+  setNow("速查");
+  currentView = "drills"; currentId = null;
+  renderNav();
+}
+
+/* ---------------- router ---------------- */
+
+function go(view, id){
+  if(view === "lesson" && id){
+    history.replaceState(null, "", "#" + id);
+    renderLesson(id);
+  } else if(view === "map"){
+    history.replaceState(null, "", "#map");
+    renderMap();
+  } else if(view === "drills"){
+    history.replaceState(null, "", "#drills");
+    renderDrills();
+  } else {
+    history.replaceState(null, "", "#home");
+    renderHome();
+  }
+  updateRailButtons();
+}
+
+function updateRailButtons(){
+  var m = {home:"navHome", map:"navMap", drills:"navDrills"};
+  Object.keys(m).forEach(function(k){
+    var el = document.getElementById(m[k]);
+    if(!el) return;
+    if(currentView === k) el.classList.add("on"); else el.classList.remove("on");
+  });
+}
+
+/* ---------------- mobile rail ---------------- */
+
+var rail = document.getElementById("rail");
+var scrim = document.getElementById("scrim");
+function openRail(){ rail.classList.add("open"); scrim.classList.add("on"); }
+function closeRail(){ rail.classList.remove("open"); scrim.classList.remove("on"); }
+
+document.getElementById("menuBtn").addEventListener("click", openRail);
+scrim.addEventListener("click", closeRail);
+
+/* ---------------- boot ---------------- */
+
+document.getElementById("navHome").addEventListener("click", function(){ go("home"); closeRail(); });
+document.getElementById("navMap").addEventListener("click", function(){ go("map"); closeRail(); });
+document.getElementById("navDrills").addEventListener("click", function(){ go("drills"); closeRail(); });
+
+qEl.addEventListener("input", renderNav);
+
+var hash = (location.hash || "").replace(/^#/, "");
+if(hash && byId[hash]) { renderLesson(hash); }
+else if(hash === "map") { renderMap(); }
+else if(hash === "drills") { renderDrills(); }
+else { renderHome(); }
+updateRailButtons();
+
+window.addEventListener("hashchange", function(){
+  var h = (location.hash || "").replace(/^#/, "");
+  if(h && byId[h]) { if(currentId !== h) renderLesson(h); }
+  else if(h === "map"){ if(currentView !== "map") renderMap(); }
+  else if(h === "drills"){ if(currentView !== "drills") renderDrills(); }
+  else if(currentView !== "home"){ renderHome(); }
+});
+
+})();
+</script>
