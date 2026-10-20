@@ -373,8 +373,12 @@ button{font-family:inherit}
 }
 .vid-chip .vplay svg{width:8px;height:8px;fill:var(--accent);margin-left:1px}
 .vid-chip .vtxt{min-width:0}
-.vid-chip .vttl{display:block;font-size:12.5px;font-weight:500;line-height:1.45}
-.vid-chip .vwhy{display:block;font-size:11.5px;color:var(--ink-3);line-height:1.5;margin-top:1px}
+.vid-chip .vttl{display:block;font-size:12.5px;font-weight:600;line-height:1.45}
+.vid-chip .vten{
+  display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;
+  font-size:11.5px;color:var(--ink-3);line-height:1.45;overflow-wrap:anywhere;
+}
+.vid-chip .vwhy{display:block;font-size:11.5px;color:var(--ink-3);line-height:1.5;margin-top:2px}
 .vid-chip .vdur{
   font-family:var(--font-mono);font-size:10px;color:var(--ink-3);
   font-variant-numeric:tabular-nums;white-space:nowrap;
@@ -412,8 +416,9 @@ button{font-family:inherit}
 }
 .vp-txt{flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:2px}
 .vp-topic{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
-.vp-title{font-size:13.5px;font-weight:600;line-height:1.45}
-.vp-why{font-size:12px;color:var(--ink-3);line-height:1.55}
+.vp-title{font-size:14px;font-weight:700;line-height:1.45}
+.vp-title-en{font-size:12px;color:var(--ink-3);line-height:1.5;overflow-wrap:anywhere}
+.vp-why{font-size:12px;color:var(--ink-3);line-height:1.55;margin-top:2px}
 .vp-acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .vp-acts a{font-size:12px;color:var(--accent);text-decoration:none;white-space:nowrap}
 .vp-acts a:hover{text-decoration:underline}
@@ -494,6 +499,7 @@ button{font-family:inherit}
   color:var(--accent);
 }
 .vid-card .vt{font-size:13.5px;font-weight:700;line-height:1.45}
+.vid-card .vte{font-size:12px;color:var(--ink-3);line-height:1.5;overflow-wrap:anywhere}
 .vid-card .vw{font-size:12px;color:var(--ink-3);line-height:1.6;flex:1}
 .vid-card .acts{display:flex;gap:8px;margin-top:6px;align-items:center;flex-wrap:wrap}
 .vid-card .go{
@@ -625,7 +631,8 @@ td.ch{font-size:11.5px;color:var(--ink-3);white-space:nowrap}
   .chip{min-height:40px;padding:8px 14px;font-size:13px}
   .pager button{min-height:46px;padding:10px 14px;font-size:13px}
   .vid-chip{padding:12px;gap:12px;border-radius:11px}
-  .vid-chip .vttl{font-size:13.5px}
+  .vid-chip .vttl{font-size:14px}
+  .vid-chip .vten{font-size:12px}
   .vid-chip .vwhy{font-size:12.5px}
   .btn-done{min-height:50px;width:100%;justify-content:center;font-size:14.5px}
 
@@ -655,7 +662,8 @@ td.ch{font-size:11.5px;color:var(--ink-3);white-space:nowrap}
   .vid-card .vid-thumb .dur{right:5px;bottom:5px;font-size:10.5px;padding:0 5px}
   .vid-card .meta{padding:9px 11px 10px;gap:2px;justify-content:center}
   .vid-card .topic{font-size:10.5px}
-  .vid-card .vt{font-size:13.5px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .vid-card .vt{font-size:14px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .vid-card .vte{font-size:12px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
   .vid-card .vw{font-size:12px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .vid-card .acts{gap:8px;flex-wrap:nowrap;margin-top:4px;align-items:center;min-width:0}
   .vid-card .go{font-size:11.5px;padding:6px 9px;min-height:32px;display:inline-flex;align-items:center;flex:none}
@@ -1488,65 +1496,65 @@ L.forEach(function(x){ byId[x.id] = x; });
    只挑和本手册章节对得上的：泰迪幼犬、2.5 个月、家里/笼子/独处场景。
    故意不收：攻击性、牵绳反应、成年狗课程、犬公园——这些和 Chichi 现在的问题无关。 */
 var VIDEOS = [
-  {id:"kllvij8ykmc", topic:"方法", title:"The 3 Stages of Lure Reward Dog Training",
+  {id:"kllvij8ykmc", topic:"方法", title:"The 3 Stages of Lure Reward Dog Training", zh:"诱导奖励训练的三个阶段",
    why:"整套手册的框架，和 01.02 训练三阶段一一对应", dur:"9:52", lessons:["l1-2","l4-1"]},
-  {id:"YHPJpRGqWYE", topic:"方法", title:"The Dog Training 3 Second Rule",
+  {id:"YHPJpRGqWYE", topic:"方法", title:"The Dog Training 3 Second Rule", zh:"训练的三秒法则",
    why:"奖励的时机。晚三秒，狗就不知道奖的是哪件事", dur:"8:51", lessons:["l1-3","l4-1"]},
-  {id:"nqxvh9ofsTk", topic:"方法", title:"The Better Way to Reward Your Dog",
+  {id:"nqxvh9ofsTk", topic:"方法", title:"The Better Way to Reward Your Dog", zh:"更好的奖励方式",
    why:"差分奖励的实操：不是每次都奖，怎么奖得更值", dur:"6:26", lessons:["l1-4"]},
-  {id:"i4ppQULVWTw", topic:"方法", title:"Dunbar Mailbag #3 - How to Phase out Treats",
+  {id:"i4ppQULVWTw", topic:"方法", title:"Dunbar Mailbag #3 - How to Phase out Treats", zh:"邓巴问答 #3：怎么撤掉零食",
    why:"零食怎么撤。练到后期一定会遇到的问题", dur:"7:12", lessons:["l1-4","l4-1"]},
-  {id:"VZMBaHz4C7k", topic:"方法", title:"The worst, most dangerous puppy advice",
+  {id:"VZMBaHz4C7k", topic:"方法", title:"The worst, most dangerous puppy advice", zh:"最糟糕、最危险的幼犬建议",
    why:"一分钟讲清哪些流行建议会毁掉幼犬。先看这个再开始", dur:"1:29", lessons:["l1-1","l1-6"]},
-  {id:"Ry06-YGzHkg", topic:"啃咬玩具", title:"Food Stuffed Chew Toys, The Easiest and Most Effective Tool",
+  {id:"Ry06-YGzHkg", topic:"啃咬玩具", title:"Food Stuffed Chew Toys, The Easiest and Most Effective Tool", zh:"塞食啃咬玩具：最省力也最有效的工具",
    why:"塞食玩具怎么做、怎么用。整个体系的燃料", dur:"5:12", lessons:["l2-6","l3-4"]},
-  {id:"gzYrBUyq-KY", topic:"啃咬玩具", title:"The Puppy Next Door #1 - Crate & Chew Toy Training",
+  {id:"gzYrBUyq-KY", topic:"啃咬玩具", title:"The Puppy Next Door #1 - Crate & Chew Toy Training", zh:"隔壁的幼犬 #1：笼子与啃咬玩具训练",
    why:"实拍：一只真幼犬从零开始做笼子和啃咬玩具训练", dur:"31:28", lessons:["l3-4","l3-5"]},
-  {id:"0zVeBF3CD54", topic:"啃咬玩具", title:"Chew Toy Training Tip - Building Desire",
+  {id:"0zVeBF3CD54", topic:"啃咬玩具", title:"Chew Toy Training Tip - Building Desire", zh:"啃咬玩具技巧：怎么建立兴趣",
    why:"48 秒：怎么让狗对玩具产生兴趣", dur:"0:48", lessons:["l3-4","l3-5"]},
-  {id:"fvCPFZrdmLc", topic:"啃咬玩具", title:"Stop Unwanted Puppy Chewing with a Chew Toy",
+  {id:"fvCPFZrdmLc", topic:"啃咬玩具", title:"Stop Unwanted Puppy Chewing with a Chew Toy", zh:"用一个啃咬玩具止住乱咬",
    why:"幼犬乱咬的直接解法", dur:"4:36", lessons:["l3-4"]},
-  {id:"Lmrk8NkcKqY", topic:"如厕", title:"The Puppy Next Door #3 - Potty Training on Leash",
+  {id:"Lmrk8NkcKqY", topic:"如厕", title:"The Puppy Next Door #3 - Potty Training on Leash", zh:"隔壁的幼犬 #3：牵绳如厕训练",
    why:"实拍：牵绳带去上厕所，和 03.03 如厕 1-2-3 完全一致", dur:"27:31", lessons:["l3-3"]},
-  {id:"RE92MzVoi7M", topic:"如厕", title:"Dunbar Mailbag #8 - House Soiling / Potty Training",
+  {id:"RE92MzVoi7M", topic:"如厕", title:"Dunbar Mailbag #8 - House Soiling / Potty Training", zh:"邓巴问答 #8：在家乱尿与如厕训练",
    why:"已经尿错地方了怎么办", dur:"4:55", lessons:["l3-3","l3-1"]},
-  {id:"PTYRZSQPzJE", topic:"笼子与独处", title:"Teach Your Dog to Love Their Crate",
+  {id:"PTYRZSQPzJE", topic:"笼子与独处", title:"Teach Your Dog to Love Their Crate", zh:"教它爱上自己的笼子",
    why:"笼子变成它自己想去的地方——Chichi 现在最需要的", dur:"10:53", lessons:["l3-5","l3-2"]},
-  {id:"OyNXG0CBgzM", topic:"笼子与独处", title:"3 Easy Crate Training Tips",
+  {id:"OyNXG0CBgzM", topic:"笼子与独处", title:"3 Easy Crate Training Tips", zh:"三条简单的笼子训练建议",
    why:"三条笼子训练的捷径", dur:"10:17", lessons:["l3-5","l3-2"]},
-  {id:"xzMVSUNjCbY", topic:"笼子与独处", title:"Stop Puppy Crate Crying and Teach Your Pup to Love Naps",
+  {id:"xzMVSUNjCbY", topic:"笼子与独处", title:"Stop Puppy Crate Crying and Teach Your Pup to Love Naps", zh:"止住笼中哭叫，教它爱上睡觉",
    why:"直接对应「离开人就叫」——这一节建议先看", dur:"13:46", lessons:["l5-1","l5-2","l3-6"]},
-  {id:"4NRCGahhNsQ", topic:"笼子与独处", title:"The Puppy Next Door #2 - Comforting Your Pup in Their Crate",
+  {id:"4NRCGahhNsQ", topic:"笼子与独处", title:"The Puppy Next Door #2 - Comforting Your Pup in Their Crate", zh:"隔壁的幼犬 #2：它在笼里哭时怎么办",
    why:"实拍：它在笼子里哭的时候该怎么办", dur:"17:11", lessons:["l5-2","l3-6"]},
-  {id:"7Dd-TSZ6RJk", topic:"笼子与独处", title:"The Puppy Next Door #12 - Long Term Confinement",
+  {id:"7Dd-TSZ6RJk", topic:"笼子与独处", title:"The Puppy Next Door #12 - Long Term Confinement", zh:"隔壁的幼犬 #12：长时间独处怎么做",
    why:"长时间独处（出门吃饭那种时长）怎么做", dur:"26:43", lessons:["l5-3","l3-6"]},
-  {id:"SGo1obpJbSg", topic:"笼子与独处", title:"iWoofs Dogcast #9 - Puppy's First Night",
+  {id:"SGo1obpJbSg", topic:"笼子与独处", title:"iWoofs Dogcast #9 - Puppy's First Night", zh:"iWoofs 播客 #9：幼犬的第一个晚上",
    why:"第一个晚上怎么过。手册里标为「资料缺口」的夜间部分，这里补上了", dur:"20:36", lessons:["l5-2"]},
-  {id:"2Dcw3Lqz5JM", topic:"笼子与独处", title:"Dunbar Dog Diaries #6 - Go to Bed Part 1",
+  {id:"2Dcw3Lqz5JM", topic:"笼子与独处", title:"Dunbar Dog Diaries #6 - Go to Bed Part 1", zh:"邓巴日记 #6：去睡觉（上）",
    why:"教「去睡觉」这个口令", dur:"15:05", lessons:["l5-2"]},
-  {id:"b3xf60odQ4k", topic:"笼子与独处", title:"Dunbar Dog Diaries #8 - Go to Bed Part 2",
+  {id:"b3xf60odQ4k", topic:"笼子与独处", title:"Dunbar Dog Diaries #8 - Go to Bed Part 2", zh:"邓巴日记 #8：去睡觉（下）",
    why:"「去睡觉」的进阶", dur:"14:31", lessons:["l5-2"]},
-  {id:"RMu7yU2z2Ys", topic:"基本礼貌", title:"Dunbar Dog Diaries #9 - Position Training Part 1",
+  {id:"RMu7yU2z2Ys", topic:"基本礼貌", title:"Dunbar Dog Diaries #9 - Position Training Part 1", zh:"邓巴日记 #9：位置训练（上）",
    why:"坐、卧、站——位置训练的第一步", dur:"11:14", lessons:["l4-3","l4-1"]},
-  {id:"ZZ_VRdolWBc", topic:"基本礼貌", title:"Got Behavior Problems? Just Say \"SIT\"",
+  {id:"ZZ_VRdolWBc", topic:"基本礼貌", title:"Got Behavior Problems? Just Say \"SIT\"", zh:"行为有问题？先说「坐下」",
    why:"一分钟：坐下为什么能解决大部分行为问题", dur:"1:02", lessons:["l4-3","l1-6"]},
-  {id:"oZq0dntaqXs", topic:"基本礼貌", title:"Dunbar Dog Diaries #12 - Come When Called",
+  {id:"oZq0dntaqXs", topic:"基本礼貌", title:"Dunbar Dog Diaries #12 - Come When Called", zh:"邓巴日记 #12：召回",
    why:"召回怎么做，和 04.04 对应", dur:"8:47", lessons:["l4-4"]},
-  {id:"A1rVljpAsY4", topic:"基本礼貌", title:"The Recall Mistake Almost Every Dog Owner Makes",
+  {id:"A1rVljpAsY4", topic:"基本礼貌", title:"The Recall Mistake Almost Every Dog Owner Makes", zh:"几乎每个主人都犯的召回错误",
    why:"一分钟：召回最常见的那个错误", dur:"1:00", lessons:["l4-4"]},
-  {id:"L26Q5GFmokM", topic:"吠叫与咬", title:"Stop Barking in 3 Seconds (Dogs Can't Bark While Sniffing)",
+  {id:"L26Q5GFmokM", topic:"吠叫与咬", title:"Stop Barking in 3 Seconds (Dogs Can't Bark While Sniffing)", zh:"三秒止叫（狗嗅闻时叫不出来）",
    why:"一分钟技巧：用嗅闻打断吠叫", dur:"1:10", lessons:["l4-5"]},
-  {id:"HlNE7ddi66s", topic:"吠叫与咬", title:"Why They Won't Stop Barking (The 3-Second Rule)",
+  {id:"HlNE7ddi66s", topic:"吠叫与咬", title:"Why They Won't Stop Barking (The 3-Second Rule)", zh:"为什么它停不下来（三秒法则）",
    why:"吠叫停不下来，问题通常出在时机", dur:"0:59", lessons:["l4-5","l1-3"]},
-  {id:"eyh72NIOz4o", topic:"吠叫与咬", title:"Dunbar Mailbag #12 - Bite Inhibition / Stop Dog Biting",
+  {id:"eyh72NIOz4o", topic:"吠叫与咬", title:"Dunbar Mailbag #12 - Bite Inhibition / Stop Dog Biting", zh:"邓巴问答 #12：咬合抑制",
    why:"咬合抑制——手册里标为「资料缺口」的那一节，这里补上了", dur:"7:15", lessons:["l4-7"]},
-  {id:"JWPadZTulCU", topic:"吠叫与咬", title:"Managing Biting and Humping",
+  {id:"JWPadZTulCU", topic:"吠叫与咬", title:"Managing Biting and Humping", zh:"咬人与骑跨怎么处理",
    why:"咬人和骑跨一起讲。泰迪幼犬常见", dur:"16:37", lessons:["l4-7"]},
-  {id:"pw6sTQ43heE", topic:"社会化", title:"Safe Puppy Socialization (with Parvo and Covid Precautions)",
+  {id:"pw6sTQ43heE", topic:"社会化", title:"Safe Puppy Socialization (with Parvo and Covid Precautions)", zh:"安全的幼犬社会化（细小与防疫注意）",
    why:"疫苗没打完怎么安全社会化。手册里同样缺这一块", dur:"86:34", lessons:["l4-6","l3-7"]},
-  {id:"tZArhRrgvcY", topic:"社会化", title:"Puppy Socialization During Social Distancing",
+  {id:"tZArhRrgvcY", topic:"社会化", title:"Puppy Socialization During Social Distancing", zh:"保持距离期间怎么做社会化",
    why:"不能带出门时怎么在家做社会化", dur:"65:33", lessons:["l4-6"]},
-  {id:"CV1UiI3MgyE", topic:"社会化", title:"The 3 Most Urgent Puppy Training Lessons",
+  {id:"CV1UiI3MgyE", topic:"社会化", title:"The 3 Most Urgent Puppy Training Lessons", zh:"幼犬期最急的三堂课",
    why:"35 秒：幼犬期最急的三件事", dur:"0:35", lessons:["l3-7","l1-7"]}
 ];
 
@@ -1846,7 +1854,8 @@ function renderLesson(id){
     vids.forEach(function(v){
       h += '<button class="vid-chip" data-vid="' + v.id + '">' +
            '<span class="vplay"><svg viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0l10 6-10 6z"/></svg></span>' +
-           '<span class="vtxt"><span class="vttl">' + esc(v.title) + '</span>' +
+           '<span class="vtxt"><span class="vttl">' + esc(v.zh) + '</span>' +
+           '<span class="vten">' + esc(v.title) + '</span>' +
            '<span class="vwhy">' + esc(v.why) + '</span></span>' +
            '<span class="vdur">' + esc(v.dur) + '</span>' +
            '</button>';
@@ -2062,14 +2071,15 @@ function renderVideos(focusId){
     h += '<div class="vid-grid">';
     VIDEOS.filter(function(v){ return v.topic === t; }).forEach(function(v){
       h += '<div class="vid-card' + (v.id === focusId ? ' playing' : '') + '" data-vid="' + v.id + '">';
-      h += '<button class="vid-thumb" data-vid="' + v.id + '" aria-label="播放 ' + esc(v.title) + '">';
+      h += '<button class="vid-thumb" data-vid="' + v.id + '" aria-label="播放 ' + esc(v.zh) + '">';
       h += '<img src="https://i.ytimg.com/vi/' + v.id + '/mqdefault.jpg" alt="" width="320" height="180">';
       h += '<span class="play"><i><svg viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0l10 6-10 6z"/></svg></i></span>';
       h += '<span class="dur">' + esc(v.dur) + '</span>';
       h += '</button>';
       h += '<div class="meta">';
       h += '<span class="topic">' + esc(v.topic) + '</span>';
-      h += '<span class="vt">' + esc(v.title) + '</span>';
+      h += '<span class="vt">' + esc(v.zh) + '</span>';
+      h += '<span class="vte">' + esc(v.title) + '</span>';
       h += '<span class="vw">' + esc(v.why) + '</span>';
       h += '<div class="acts">';
       h += '<a class="go" href="' + ytWatch(v.id) + '" target="_blank" rel="noopener noreferrer">在 YouTube 打开 ↗</a>';
@@ -2136,7 +2146,7 @@ function playerHTML(id){
       '<span class="vp-fb-txt">file:// 下无法内嵌 · 在 YouTube 播放 ↗</span></a>';
   } else {
     frame = '<iframe src="https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0" title="' +
-      esc(v.title) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+      esc(v.zh) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
   }
   var lesson = v.lessons.length ? byId[v.lessons[0]] : null;
   var h = '<div class="vid-player" data-vid="' + id + '">';
@@ -2144,7 +2154,8 @@ function playerHTML(id){
   h += '<div class="vp-meta">';
   h += '<div class="vp-txt">' +
        '<span class="vp-topic">' + esc(v.topic) + '</span>' +
-       '<span class="vp-title">' + esc(v.title) + '</span>' +
+       '<span class="vp-title">' + esc(v.zh) + '</span>' +
+       '<span class="vp-title-en">' + esc(v.title) + '</span>' +
        '<span class="vp-why">' + esc(v.why) + '</span></div>';
   h += '<div class="vp-acts">' +
        '<a href="' + ytWatch(id) + '" target="_blank" rel="noopener noreferrer">在 YouTube 打开 ↗</a>' +
