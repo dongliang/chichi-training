@@ -125,7 +125,7 @@ button{font-family:inherit}
 }
 .brand{display:flex;flex-direction:column;gap:3px}
 .brand .mark{
-  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  font-family:var(--font-body);font-size:11px;letter-spacing:.06em;
   color:var(--accent);font-weight:500;
 }
 .brand h1{font-size:19px;font-weight:700;letter-spacing:.02em}
@@ -201,7 +201,7 @@ button{font-family:inherit}
 
 .wrap{max-width:820px}
 .eyebrow{
-  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+  font-family:var(--font-body);font-size:11.5px;letter-spacing:.06em;
   color:var(--accent);font-weight:500;margin-bottom:10px;
 }
 
@@ -344,7 +344,7 @@ button{font-family:inherit}
   font-style:italic;
 }
 .quote .zh{
-  margin-top:9px;font-size:13px;line-height:1.75;color:var(--ink-2);
+  margin-top:0;font-size:14px;line-height:1.8;color:var(--ink);
 }
 .quote .src{
   margin-top:11px;padding-top:9px;
@@ -361,26 +361,53 @@ button{font-family:inherit}
 .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
 .vid-chips{display:grid;gap:8px;margin-top:12px}
 .vid-chip{
-  display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;
-  background:var(--surface);border:1px solid var(--line);border-radius:9px;
-  padding:9px 13px;text-align:left;cursor:pointer;color:inherit;width:100%;
+  display:grid;grid-template-columns:148px minmax(0,1fr);gap:0;align-items:center;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:0;overflow:hidden;text-align:left;cursor:pointer;color:inherit;width:100%;
   transition:.12s;
 }
 .vid-chip:hover{border-color:var(--accent)}
-.vid-chip .vplay{
-  width:22px;height:22px;border-radius:50%;background:var(--accent-soft);
-  display:flex;align-items:center;justify-content:center;flex:none;
+.vid-chip.on{border-color:var(--accent)}
+.vid-chip .vthumb{
+  position:relative;display:block;width:128px;aspect-ratio:16/9;
+  margin:10px;border-radius:8px;
+  background:var(--surface-2);overflow:hidden;
 }
-.vid-chip .vplay svg{width:8px;height:8px;fill:var(--accent);margin-left:1px}
-.vid-chip .vtxt{min-width:0}
+.vid-chip .vthumb img{width:100%;height:100%;object-fit:cover;display:block}
+.vid-chip .vplay{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.94);
+  display:flex;align-items:center;justify-content:center;flex:none;
+  box-shadow:0 2px 8px rgba(0,0,0,.28);
+}
+.vid-chip .vplay svg{width:9px;height:9px;fill:#17231E;margin-left:1px}
+.vid-chip .vtxt{min-width:0;padding:10px 12px 10px 0}
+@media (min-width:700px){
+  .vid-chip{grid-template-columns:220px minmax(0,1fr)}
+  .vid-chip .vthumb{width:196px}
+  .vid-chip .vplay{width:36px;height:36px}
+  .vid-chip .vplay svg{width:12px;height:12px}
+  .vid-chip .vtxt{padding:12px 16px 13px 16px}
+  .vid-chip .vttl{font-size:14.5px}
+  .vid-chip .vten{font-size:12px}
+  .vid-chip .vwhy{font-size:12.5px}
+}
 .vid-chip .vttl{display:block;font-size:12.5px;font-weight:600;line-height:1.45}
 .vid-chip .vten{
   display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;
   font-size:11.5px;color:var(--ink-3);line-height:1.45;overflow-wrap:anywhere;
 }
 .vid-chip .vwhy{display:block;font-size:11.5px;color:var(--ink-3);line-height:1.5;margin-top:2px}
+.vid-chip .vmeta{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  margin-bottom:2px;
+}
+.vid-chip .vtopic{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;
+  color:var(--accent);text-transform:uppercase;
+}
 .vid-chip .vdur{
-  font-family:var(--font-mono);font-size:10px;color:var(--ink-3);
+  font-family:var(--font-mono);font-size:10.5px;color:var(--ink-3);
   font-variant-numeric:tabular-nums;white-space:nowrap;
 }
 .vid-chip.on{border-color:var(--accent);background:var(--accent-soft)}
@@ -755,7 +782,7 @@ td.ch{font-size:11.5px;color:var(--ink-3);white-space:nowrap}
 <div class="shell">
   <aside class="rail" id="rail">
     <div class="brand">
-      <div class="mark">Ian Dunbar · 幼犬训练体系</div>
+      <div class="mark">伊恩·邓巴 · 幼犬训练体系</div>
       <h1>Chichi 训练手册</h1>
       <div class="sub">22 集讲义整理 · 泰迪幼犬</div>
     </div>
@@ -805,7 +832,7 @@ var CHAPTERS = [
   {id:"c1", num:"01", title:"方法", sub:"动手之前，先把训练观立住"},
   {id:"c2", num:"02", title:"接狗之前", sub:"8 周之前发生的事决定了 8 岁以后"},
   {id:"c3", num:"03", title:"到家第一周", sub:"两个空间，一套无错流程"},
-  {id:"c4", num:"04", title:"核心技能", sub:"诱导、Premack、坐下、召回、吠叫"},
+  {id:"c4", num:"04", title:"核心技能", sub:"诱导、普雷马克原理、坐下、召回、吠叫"},
   {id:"c5", num:"05", title:"Chichi 专项", sub:"2.5 个月泰迪的当下问题"}
 ];
 
@@ -814,10 +841,10 @@ var L = [
 {
   id:"l1-1", ch:"c1", title:"先训练你自己",
   lede:"训练本身不难。难的是在碰狗之前，你知不知道自己在做什么。",
-  body:"Dunbar 把这件事排在所有内容之前。他的原话是：幼犬教育中最重要的方面，是你对幼犬教育的教育。训练方法本身很简单，但用错方法练得越久，坏习惯越牢。",
+  body:"邓巴把这件事排在所有内容之前。他的原话是：幼犬教育中最重要的方面，是你对幼犬教育的教育。训练方法本身很简单，但用错方法练得越久，坏习惯越牢。",
   steps:[
     "先读完方法，再开始训练。<b>不要边训边想。</b>",
-    "只用有科学依据的<b>诱导—奖励法</b>（lure & reward）。不用恐吓、不用疼痛、不用「当老大」那套。",
+    "只用有科学依据的<b>诱导—奖励法</b>。不用恐吓、不用疼痛、不用「当老大」那套。",
     "把训练理解成<b>教一门语言</b>，不是发号施令。狗不懂中文，也不懂英文。"
   ],
   pitfalls:[
@@ -835,10 +862,10 @@ var L = [
 {
   id:"l1-2", ch:"c1", title:"训练的三个阶段",
   lede:"先教它听懂，再让它想做，最后才是「必须」。顺序错了，全程都在对抗。",
-  body:"Dunbar 把训练拆成三个阶段。多数人直接从第三阶段开始——下命令、不听话就加压——所以永远在原地打转。",
+  body:"邓巴把训练拆成三个阶段。多数人直接从第三阶段开始——下命令、不听话就加压——所以永远在原地打转。",
   steps:[
     "<b>阶段一 · 教语言。</b>用食物在手里诱导，让口令和动作连起来。他说坐下「6 到 10 次就懂了」。",
-    "<b>阶段二 · 让它想做。</b>用 Premack 原理，把狗本来就爱做的事接在你要求的事后面。这一步做完，惩罚很少需要出场。",
+    "<b>阶段二 · 让它想做。</b>用普雷马克原理，把狗本来就爱做的事接在你要求的事后面。这一步做完，惩罚很少需要出场。",
     "<b>阶段三 · 无暴力的坚持。</b>只有少数安全底线（比如门线：门开着不能跨出去，那是生死问题）需要强制执行，靠冷静而重复的坚持，不靠音量。"
   ],
   pitfalls:[
@@ -848,7 +875,7 @@ var L = [
   quote:{
     en:"The first stage is basically teaching a dog ESL… The second stage in training is to teach the dog to want to do what we want him to do… And now we move to phase three… 'Because I'm the daddy, that's why.'",
     zh:"第一阶段基本上是教狗一门第二语言……第二阶段是让它想做我们想让它做的事……然后才进入第三阶段：「因为我是爸爸，就这么定了。」",
-    src:"#001 · Dog-friendly dog training"
+    src:"#001 · 对狗友善的训练"
   },
   tags:["框架"],
   related:["l4-1","l4-2","l1-5"]
@@ -856,7 +883,7 @@ var L = [
 {
   id:"l1-3", ch:"c1", title:"反馈是二元的",
   lede:"做对了就说好，做错了就纠正或转移。中间没有模糊地带。",
-  body:"Dunbar 说人对动物的反馈有两个毛病：出现得太少，而且出现时都是坏的。我们把好的当成理所当然，只在出问题时才有反应。",
+  body:"邓巴说人对动物的反馈有两个毛病：出现得太少，而且出现时都是坏的。我们把好的当成理所当然，只在出问题时才有反应。",
   steps:[
     "做对 → <b>立刻</b>说「好孩子」并给奖励。",
     "做错 → 立刻纠正，或者把它转移到一件它能做对的事上。",
@@ -869,7 +896,7 @@ var L = [
   quote:{
     en:"The feedback to the dog is binary. When he gets it right, tell him good boy. And when he gets it wrong, then hey, correct him or redirect him.",
     zh:"对狗的反馈是二元的。它做对了，就告诉它好孩子；它做错了，就纠正它或者转移它。",
-    src:"#003 · Effective Dog Training"
+    src:"#003 · 有效的狗训练"
   },
   tags:["反馈"],
   related:["l1-4"]
@@ -881,17 +908,17 @@ var L = [
   steps:[
     "先立一条<b>及格线</b>：普通表现不奖。",
     "更好的表现 → 更好的奖励（更香的零食、更多次数、更快的放行）。",
-    "偶尔的巅峰表现 → <b>jackpot</b>：一连串奖励，让它记住这一次。",
+    "偶尔的巅峰表现 → <b>大奖</b>：一连串奖励，让它记住这一次。",
     "结果：学习一直在继续，狗一直在往上走。"
   ],
   pitfalls:[
-    "连续强化（每次都奖）。Dunbar 的原话是「你会养出一个被宠坏的孩子」。",
+    "连续强化（每次都奖）。邓巴的原话是「你会养出一个被宠坏的孩子」。",
     "用固定比例或固定间隔发奖。他说全世界的训犬师没有一个会这么干。"
   ],
   quote:{
     en:"Only above average responses are rewarded. Better responses get better rewards. And the best responses get the best rewards — jackpots. Then the learning is ever learning. The dog is always improving.",
     zh:"只有高于平均的反应才被奖励。更好的反应得到更好的奖励。最好的反应得到最好的奖励——头奖。这样学习才是持续的学习，狗一直在进步。",
-    src:"#003 · Effective Dog Training"
+    src:"#003 · 有效的狗训练"
   },
   tags:["奖励"],
   related:["l1-3","l4-2"]
@@ -912,7 +939,7 @@ var L = [
   quote:{
     en:"A punishment is a stimulus that reduces the immediately preceding behavior, such that it's less likely to occur in the future. It does not have to be nasty, scary or painful. And I would say, if it doesn't have to be, then maybe it shouldn't be.",
     zh:"惩罚是一种刺激，它减少紧接在它前面的那个行为，让那个行为以后更少发生。它不必是恶劣的、可怕的或疼痛的。我想说：既然不必，那也许就不该。",
-    src:"#001 · Dog-friendly dog training"
+    src:"#001 · 对狗友善的训练"
   },
   tags:["惩罚"],
   related:["l1-6"]
@@ -920,10 +947,10 @@ var L = [
 {
   id:"l1-6", ch:"c1", title:"别惩罚它不知道的规则",
   lede:"人最常干的三件事：定人的规则、对狗保密、然后为违反规则惩罚它。",
-  body:"Dunbar 用扑人这件事讲透了这个逻辑。幼犬扑到你腿上，你弯下腰摸着说「好孩子」——你在奖励扑人。它的唯一罪过是它长大了，变成了 80 磅的藏獒。",
+  body:"邓巴用扑人这件事讲透了这个逻辑。幼犬扑到你腿上，你弯下腰摸着说「好孩子」——你在奖励扑人。它的唯一罪过是它长大了，变成了 80 磅的藏獒。",
   steps:[
     "先想清楚你要的行为是什么，然后<b>把它教出来</b>。",
-    "扑人的正解：先教坐下，再给坐下的理由。而不是抓前爪、踩后脚、喷柠檬汁、卷报纸打头、膝盖顶胸、掀翻。原文称这一整套为「insanity」。",
+    "扑人的正解：先教坐下，再给坐下的理由。而不是抓前爪、踩后脚、喷柠檬汁、卷报纸打头、膝盖顶胸、掀翻。原文把这一整套称作「疯狂的做法」。",
     "记住：它做的正是你曾经奖励过的动作。"
   ],
   pitfalls:[
@@ -933,7 +960,7 @@ var L = [
   quote:{
     en:"Number one, by making up rules, human rules… Number two, we keep these rules a secret from the dog. And then number three, now we can punish the dog for breaking rules he didn't even know existed.",
     zh:"第一，制定规则，人的规则……第二，我们对狗保密这些规则。第三，现在我们可以因为它违反了它根本不知道存在的规则而惩罚它。",
-    src:"#001 · Dog-friendly dog training"
+    src:"#001 · 对狗友善的训练"
   },
   tags:["惩罚","常见误区"],
   related:["l1-5","l4-3"]
@@ -941,7 +968,7 @@ var L = [
 {
   id:"l1-7", ch:"c1", title:"收容所是被制造出来的",
   lede:"一条几乎固定的失败链条，每一步都可预防。",
-  body:"这是整套体系的动机。Dunbar 反复说同一句话：收容所的狗不是天生的，是被造出来的。",
+  body:"这是整套体系的动机。邓巴反复说同一句话：收容所的狗不是天生的，是被造出来的。",
   steps:[
     "8 周接回家，没社会化、没如厕训练、没啃咬玩具训练。",
     "在家里犯如厕和啃咬的错 → 被赶到院子里。",
@@ -987,7 +1014,7 @@ var L = [
 {
   id:"l2-2", ch:"c2", title:"从哪里接：只看这 8 周",
   lede:"血统和长相都不重要，重要的是它出生后这 8 周是怎么过的。",
-  body:"Dunbar 的原话很狠：8 周时如果没社会化、没训练，不管血统证书多长，你买到的都是一颗「柠檬」。",
+  body:"邓巴的原话很狠：8 周时如果没社会化、没训练，不管血统证书多长，你买到的都是一颗「柠檬」。",
   steps:[
     "<b>好来源：</b>室内养大、有固定厕所位、有啃咬玩具、很多人抱过并教过基本礼貌。",
     "<b>差来源：</b>犬舍养大、没有厕所。它已经学会到处大小便，回家照做。",
@@ -1033,7 +1060,7 @@ var L = [
   steps:[
     "<b>测试一 · 教育程度：</b>会啃咬玩具吗？如厕训练吗？笼里有厕所和塞食玩具吗？8 周前见过多少人——尤其<b>男人、小孩、陌生人</b>？",
     "<b>测试二 · 可操作性：</b>抱起来、开嘴、看眼睛、看耳朵、抱一抱。",
-    "<b>测试三 · 可训练性：</b>当场教它 come / sit / down。现在难，回家也难；现在容易，回家也容易。"
+    "<b>测试三 · 可训练性：</b>当场教它来 / 坐 / 卧。现在难，回家也难；现在容易，回家也容易。"
   ],
   pitfalls:[
     "只看它乖不乖。乖和可训练是两件事。",
@@ -1050,7 +1077,7 @@ var L = [
 {
   id:"l2-5", ch:"c2", title:"品种与混血",
   lede:"这是个人选择，但先做功课，而且要做好十几年的准备。",
-  body:"Dunbar 说得很直白：选狗像选伴侣，人类用的标准是「三个 C」——毛色、体型、可爱。这个标准撑不过第一年。",
+  body:"邓巴说得很直白：选狗像选伴侣，人类用的标准是「三个 C」——毛色、体型、可爱。这个标准撑不过第一年。",
   steps:[
     "问养这种狗的人、繁殖者、兽医。",
     "<b>试驾：</b>亲手牵它走、叫它、抱它、让它翻肚皮。",
@@ -1072,11 +1099,11 @@ var L = [
 {
   id:"l2-6", ch:"c2", title:"购物清单：六样，没有食盆",
   lede:"「不需要食盆」是故意的——每一顿饭都应该是训练机会。",
-  body:"Dunbar 的清单很短，但每一样都有用途。食盆被划掉，是因为它让一天两顿饭在 30 秒内结束，浪费了几十次奖励机会。",
+  body:"邓巴的清单很短，但每一样都有用途。食盆被划掉，是因为它让一天两顿饭在 30 秒内结束，浪费了几十次奖励机会。",
   steps:[
     "笼子、水碗、<b>大量</b>可塞食物的空心啃咬玩具、项圈、牵引绳、舒服的床。",
     "不买食盆。前几个月<b>所有食物都塞进啃咬玩具</b>，让它变成「啃咬玩具成瘾者」。",
-    "剩下的食物由家人手喂，顺手练 come / sit / down / roll over。"
+    "剩下的食物由家人手喂，顺手练来 / 坐 / 卧 / 打滚。"
   ],
   pitfalls:[
     "用食盆。狗几秒钟吃完，你损失了每天最好的训练素材。",
@@ -1095,14 +1122,14 @@ var L = [
 {
   id:"l3-1", ch:"c3", title:"无错误原则",
   lede:"不是犯错后纠正，是根本不给犯错的机会。",
-  body:"这是整套方法的地基。Dunbar 说得很绝对：一个如厕错误会变成十个，然后变成习惯，然后你要花几倍时间去拆掉它。",
+  body:"这是整套方法的地基。邓巴说得很绝对：一个如厕错误会变成十个，然后变成习惯，然后你要花几倍时间去拆掉它。",
   steps:[
     "从进门<b>第一分钟</b>就开始。",
     "用空间管理（笼子、围栏）代替「盯着它」。人盯不住狗。",
     "记住：好习惯和坏习惯一样难改。既然一样难，就从第一天开始建好的。"
   ],
   pitfalls:[
-    "「它还小，长大就好了」。Dunbar 的答案是不好，只会更难。",
+    "「它还小，长大就好了」。邓巴的答案是不好，只会更难。",
     "犯错后惩罚。惩罚教不会正确行为，只会让它躲着你做。"
   ],
   quote:{
@@ -1116,7 +1143,7 @@ var L = [
 {
   id:"l3-2", ch:"c3", title:"两个空间：围栏与笼子",
   lede:"你不在用围栏，你在家用笼子。这是两件不同的工具，不是同一个东西的大小号。",
-  body:"Dunbar 的划分非常清楚。围栏是「你脱不开身」时的保险，笼子是真正的训练工具——因为你在场，你能奖励。",
+  body:"邓巴的划分非常清楚。围栏是「你脱不开身」时的保险，笼子是真正的训练工具——因为你在场，你能奖励。",
   steps:[
     "<b>围栏（你不在家）：</b>床 + 新鲜水 + 狗厕所 + 塞食玩具。",
     "<b>笼子（你在家）：</b>床 + 塞食玩具。<b>没有水，没有厕所。</b>",
@@ -1142,7 +1169,7 @@ var L = [
   body:"这套流程的名字叫「无错式如厕训练」。核心不是憋尿，是把「尿」变成一个你能精确预测、并且能立刻奖励的事件。",
   steps:[
     "<b>你在家：</b>把狗关进笼子，一小时一节。",
-    "<b>整点放出来：</b>牵着<b>小跑</b>去厕所（小跑会晃膀胱），一边跑一边说「go pee go poop」。",
+    "<b>整点放出来：</b>牵着<b>小跑</b>去厕所（小跑会晃膀胱），一边跑一边说「尿尿，拉屎」。",
     "<b>一分钟内完成 → 立刻</b>给三个最香的零食 + 大声夸。",
     "<b>没完成 → 不骂</b>，放回笼子，半小时后再试。",
     "<b>你要离开超过一小时 →</b>必须留厕所（用围栏，不是笼子）。"
@@ -1190,7 +1217,7 @@ var L = [
     "当着狗的面把食物塞进玩具。",
     "让它<b>闻一下</b>。",
     "把玩具放进笼子，关上门——<b>狗在外面</b>。",
-    "它会急得想进去（Dunbar 原话：它们会疯掉，像是在说「让我进去」）。",
+    "它会急得想进去（邓巴原话：它们会疯掉，像是在说「让我进去」）。",
     "这时开门。几秒内它就会趴下安静啃玩具。"
   ],
   pitfalls:[
@@ -1232,13 +1259,13 @@ var L = [
 {
   id:"l3-7", ch:"c3", title:"第一个月：四件事同时走",
   lede:"不是做完一件再做下一件，是每天同时推进。",
-  body:"Dunbar 列的第一月清单有四项，加一项基础礼貌。它们互相支撑：如厕训练靠笼子，笼子靠塞食玩具，塞食玩具让独处变得可能。",
+  body:"邓巴列的第一月清单有四项，加一项基础礼貌。它们互相支撑：如厕训练靠笼子，笼子靠塞食玩具，塞食玩具让独处变得可能。",
   steps:[
     "继续如厕训练。",
     "继续啃咬玩具训练。",
     "独处准备。",
     "社会化——<b>3 个月前完成</b>，在家里做。",
-    "开始基础礼貌（come / sit / down / roll over）。"
+    "开始基础礼貌（来 / 坐 / 卧 / 打滚）。"
   ],
   pitfalls:[
     "排队做。社会化有截止日期，其他没有，所以它优先级最高。",
@@ -1257,7 +1284,7 @@ var L = [
 {
   id:"l4-1", ch:"c4", title:"诱导—奖励法",
   lede:"第一阶段不是下命令，是教它「这个词是什么意思」。",
-  body:"Dunbar 的类比是 ESL：你对着一个不懂中文的人喊「坐下」，他不会坐。狗也一样。所以先用食物把动作和声音绑在一起，再撤掉食物。",
+  body:"邓巴的类比是「第二语言」：你对着一个不懂中文的人喊「坐下」，他不会坐。狗也一样。所以先用食物把动作和声音绑在一起，再撤掉食物。",
   steps:[
     "食物拿在手里，做出引导动作，<b>同时</b>说口令。",
     "6–10 次，口令和动作就连上了。",
@@ -1272,15 +1299,15 @@ var L = [
   quote:{
     en:"The dog doesn't speak English, or American, or Spanish, or French. So the first stage in training is to teach the dog ESL, English as a second language. And that's how we use the food lure in the hand.",
     zh:"狗不说英语、美语、西班牙语，也不说法语。所以训练的第一阶段是教狗一门第二语言。这就是我们在手里用食物诱导的原因。",
-    src:"#001 · Dog-friendly dog training"
+    src:"#001 · 对狗友善的训练"
   },
   tags:["基础"],
   related:["l1-2","l4-2","l4-3"]
 },
 {
-  id:"l4-2", ch:"c4", title:"Premack 原理：把干扰变成奖励",
+  id:"l4-2", ch:"c4", title:"普雷马克原理：把干扰变成奖励",
   lede:"把狗最想做的事，变成你要求它做的事的奖励。",
-  body:"这是整套体系里最优雅的一招。公园里那只不听召唤的狗，问题不是它坏，是环境比你有意思。Premack 把环境变成你的奖励池。",
+  body:"这是整套体系里最优雅的一招。公园里那只不听召唤的狗，问题不是它坏，是环境比你有意思。普雷马克原理把环境变成你的奖励池。",
   steps:[
     "找一个它<b>超爱做</b>的事：闻屁股、上沙发、被揉肚子、扔球、和别的狗打招呼。",
     "先要求一个低频行为（坐下）。",
@@ -1290,12 +1317,12 @@ var L = [
   pitfalls:[
     "只用零食。零食会腻，狗的兴趣不会。",
     "在它已经兴奋到听不见时下指令。先把刺激强度降下来。",
-    "把奖励和惩罚混着用。Premack 的前提是它真的想要那个东西。"
+    "把奖励和惩罚混着用。普雷马克原理的前提是它真的想要那个东西。"
   ],
   quote:{
     en:"We follow a low-frequency behavior — one the dog doesn't want to do — by a high-frequency behavior, commonly known as a behavior problem, or a dog hobby. That will then become a reward for the lower-frequency behavior.",
     zh:"我们让一个低频行为——狗不太想做的——后面紧跟一个高频行为，也就是通常所说的行为问题，或者狗的爱好。那个高频行为就成了低频行为的奖励。",
-    src:"#001 · Dog-friendly dog training"
+    src:"#001 · 对狗友善的训练"
   },
   tags:["奖励","基础"],
   related:["l1-4","l4-1","l4-4"]
@@ -1303,21 +1330,21 @@ var L = [
 {
   id:"l4-3", ch:"c4", title:"坐下",
   lede:"扑人问题的答案不是惩罚，是先教它坐下，再给坐下的理由。",
-  body:"Dunbar 问主人「你希望狗怎么跟你打招呼」，答案通常是「坐着吧」。那就教坐下——而不是在它扑人时想办法让它难受。",
+  body:"邓巴问主人「你希望狗怎么跟你打招呼」，答案通常是「坐着吧」。那就教坐下——而不是在它扑人时想办法让它难受。",
   steps:[
     "用食物诱导：从鼻尖往上、往后移，屁股自然落地。",
     "落地的那一瞬间说「sit」并奖励。",
     "撤掉诱导，只留口令。",
-    "用 Premack 给坐下的理由：坐下 → 开门 / 上沙发 / 打招呼 / 扔球。"
+    "用普雷马克原理给坐下的理由：坐下 → 开门 / 上沙发 / 打招呼 / 扔球。"
   ],
   pitfalls:[
-    "用 Dunbar 列的那套：抓前爪、踩后脚、柠檬汁喷脸、卷报纸打头、膝盖顶胸、掀翻。原文称之为「insanity」。",
+    "用邓巴列的那套：抓前爪、踩后脚、柠檬汁喷脸、卷报纸打头、膝盖顶胸、掀翻。原文把这一整套称作「疯狂的做法」。",
     "只在它有求于你时才要求坐下，其他时候不管。一致性是奖励生效的前提。"
   ],
   quote:{
     en:"I ask owners, 'Well, how would you like the dog to greet you?' And people say, 'Well, I don't know, to sit, I guess.' I said, 'Let's teach him to sit.' And then we give him a reason for sitting.",
     zh:"我问主人：「你希望狗怎么跟你打招呼？」他们说：「不知道，坐着吧。」我说：「那我们就教它坐下。」然后我们给它一个坐下的理由。",
-    src:"#001 · Dog-friendly dog training"
+    src:"#001 · 对狗友善的训练"
   },
   tags:["技能"],
   related:["l1-6","l4-2","l4-1"]
@@ -1325,7 +1352,7 @@ var L = [
 {
   id:"l4-4", ch:"c4", title:"召回",
   lede:"狗不回来，通常是因为「回来」从来不是好事。",
-  body:"Dunbar 讲了两件最典型的事：在公园里喊到发火，狗一回来就被抓住做 ugly face；或者叫回来只是为了结束玩耍、戴上牵引绳。两种都在教它「别回来」。",
+  body:"邓巴讲了两件最典型的事：在公园里喊到发火，狗一回来就被抓住做 ugly face；或者叫回来只是为了结束玩耍、戴上牵引绳。两种都在教它「别回来」。",
   steps:[
     "用诱导 + 奖励：叫名字 → 给食物 → 狗到 → 奖励。",
     "只在你有把握它会来时叫。<b>叫了不来，就是在训练「叫了可以不来」。</b>",
@@ -1340,7 +1367,7 @@ var L = [
   quote:{
     en:"The dog doesn't want to come, and then when it does come they grab it and do ugly face… Who in their right mind would think that a dog would want to approach them when they're screaming like that?",
     zh:"狗不想过来，等它真过来了，他们一把抓住它做那副凶脸……哪个脑子正常的人会觉得，一个人那样尖叫时狗会想靠近他？",
-    src:"#001 · Dog-friendly dog training"
+    src:"#001 · 对狗友善的训练"
   },
   tags:["技能"],
   related:["l4-2","l1-3"]
@@ -1348,7 +1375,7 @@ var L = [
 {
   id:"l4-5", ch:"c4", title:"吠叫：一个具体解法",
   lede:"不是「当老大」，是让嘴和胃同时忙起来。",
-  body:"Dunbar 用这件事当反例：人们想要抽象的「领导力」，却不要具体方案。他给的是一个可以在厨房里做完的动作。",
+  body:"邓巴用这件事当反例：人们想要抽象的「领导力」，却不要具体方案。他给的是一个可以在厨房里做完的动作。",
   steps:[
     "称出<b>一天份</b>的狗粮。",
     "泡软，塞进空心啃咬玩具。",
@@ -1363,7 +1390,7 @@ var L = [
   quote:{
     en:"Moisten, weigh out his kibble for the day, moisten it, stuff it into chew toys, put them in the fridge, freeze them, give them to the dog when you're at work, and you'll find the number of barks per day has reduced by 90%.",
     zh:"把一天份的狗粮称出来，泡软，塞进啃咬玩具，放冰箱冷冻，上班时给狗。你会发现每天的吠叫次数减少了 90%。",
-    src:"#003 · Effective Dog Training"
+    src:"#003 · 有效的狗训练"
   },
   tags:["技能","独处"],
   related:["l3-4","l3-6"]
@@ -1393,7 +1420,7 @@ var L = [
 },
 {
   id:"l4-7", ch:"c4", title:"咬手：只有原则，没有步骤",
-  lede:"Dunbar 说这是最重要的一项，但现有字幕里只有一句话。",
+  lede:"邓巴说这是最重要的一项，但现有字幕里只有一句话。",
   body:"在「第二章」那集的收尾，他把咬手抑制排在所有事情之上：你必须教幼犬不用牙齿伤人。但具体怎么做，这一集没有展开。",
   steps:[
     "原则：教它<b>不用牙齿伤人</b>，在幼犬期做，越早越好。",
@@ -1417,7 +1444,7 @@ var L = [
 {
   id:"l5-1", ch:"c5", title:"Chichi 的现状判断",
   lede:"2.5 个月的泰迪，离开人就叫。这个年龄，这是正常的。",
-  body:"2.5 个月大约是 10 周。按 Dunbar 的时间表，你正好在「社会化窗口内」和「独处训练应该开始」的交叉点上。好消息是还来得及，坏消息是不能再等。",
+  body:"2.5 个月大约是 10 周。按邓巴的时间表，你正好在「社会化窗口内」和「独处训练应该开始」的交叉点上。好消息是还来得及，坏消息是不能再等。",
   steps:[
     "<b>年龄：</b>10 周左右。社会化必须在 13 周前完成。",
     "<b>行为：</b>「离开人就叫」不是性格问题，是它还没学过独处。它从出生起就一直有人或同窝的狗在身边。",
@@ -1427,7 +1454,7 @@ var L = [
   pitfalls:[
     "在它叫的时候回去。那是在奖励叫。",
     "把它关到另一个房间「让它哭够」。2.5 个月是恐惧最容易固化的年龄。",
-    "以为「长大自然就好了」。Dunbar 的原话是反过来的：坏习惯一样难改。"
+    "以为「长大自然就好了」。邓巴的原话是反过来的：坏习惯一样难改。"
   ],
   quote:{
     en:"If your puppy has become used to having unrestricted access to you, then he's gonna fall apart when you're gone.",
@@ -1440,7 +1467,7 @@ var L = [
 {
   id:"l5-2", ch:"c5", title:"独处阶梯",
   lede:"把「同房间 → 不同房间」拆成能每天走一级的台阶。",
-  body:"Dunbar 原文只给了两级。下面这个拆法是按他的逻辑展开的：每一步都小到几乎不会失败，失败了就退回上一级。",
+  body:"邓巴原文只给了两级。下面这个拆法是按他的逻辑展开的：每一步都小到几乎不会失败，失败了就退回上一级。",
   steps:[
     "<b>第 1 级 · 白天笼子：</b>笼子放在你旁边，塞食玩具，一次一小时，整点放出来上厕所。做 2–3 天。",
     "<b>第 2 级 · 换房间：</b>笼子移到隔壁房间，门开着，5 分钟 → 15 分钟。",
@@ -1492,7 +1519,7 @@ var L = [
 var byId = {};
 L.forEach(function(x){ byId[x.id] = x; });
 
-/* Dunbar Academy 频道里挑出来的视频。
+/* 邓巴学院频道里挑出来的视频。
    只挑和本手册章节对得上的：泰迪幼犬、2.5 个月、家里/笼子/独处场景。
    故意不收：攻击性、牵绳反应、成年狗课程、犬公园——这些和 Chichi 现在的问题无关。 */
 var VIDEOS = [
@@ -1689,7 +1716,7 @@ function renderHome(){
   var h = '';
   h += '<div class="wrap">';
   h += '<header class="hero">';
-  h += '<div class="eyebrow">Ian Dunbar · 22 集讲义整理</div>';
+  h += '<div class="eyebrow">伊恩·邓巴 · 22 集讲义整理</div>';
   h += '<h1>Chichi 训练手册</h1>';
   h += '<p class="lede">把一套幼犬训练体系拆成 30 节课。每一节只有一个原理、几步做法、几个坑，以及原文出处。可以按顺序读，也可以随便点。</p>';
   h += '<div class="meta"><span>对象 <b>2.5 个月泰迪</b></span><span>资料 <b>22 份字幕</b></span><span>结构 <b>5 章 · 30 课</b></span><span>视频 <b>' + VIDEOS.length + ' 个</b></span></div>';
@@ -1738,7 +1765,7 @@ function renderHome(){
 
   h += '<section class="block">';
   h += '<div class="block-head"><span class="num">▶</span><h2>配套视频</h2></div>';
-  h += '<p class="block-sub">从 @DunbarAcademy 挑的 ' + VIDEOS.length + ' 个，只收和 Chichi 现在这些问题相关的。在页内直接播，也能跳去 YouTube。</p>';
+  h += '<p class="block-sub">从邓巴学院挑的 ' + VIDEOS.length + ' 个，只收和 Chichi 现在这些问题相关的。在页内直接播，也能跳去 YouTube。</p>';
   h += fileWarnHTML();
   h += '<div class="vid-grid">';
   ["xzMVSUNjCbY","PTYRZSQPzJE","SGo1obpJbSg","eyh72NIOz4o"].forEach(function(vid){
@@ -1764,7 +1791,7 @@ function renderHome(){
   h += '<ul>';
   h += '<li><b>#007 发育优先级</b>：字幕时间轴重叠，无法使用。</li>';
   h += '<li><b>#024 与人社会化、#025 喜欢人</b>：YouTube 拦截了抓取请求，没有拿到字幕。所以「社会化」和「咬手抑制」两节只有原则，没有具体步骤。</li>';
-  h += '<li><b>夜间睡眠</b>：Dunbar 这套视频没讲。第五章的夜间部分是按他的「同房间 → 不同房间」逻辑推出来的，已在课内标注。</li>';
+  h += '<li><b>夜间睡眠</b>：邓巴这套视频没讲。第五章的夜间部分是按他的「同房间 → 不同房间」逻辑推出来的，已在课内标注。</li>';
   h += '</ul>';
   h += '<p style="margin-top:10px">这三处缺口，<b>视频库里有补上的内容</b>：<a href="#videos" style="color:var(--accent)">去看视频 →</a></p>';
   h += '</div>';
@@ -1818,15 +1845,14 @@ function renderLesson(id){
   l.steps.forEach(function(s){ h += '<li><span>' + s + '</span></li>'; });
   h += '</ol>';
 
-  h += '<div class="sub-head"><span class="lbl">坑</span><span class="rule"></span><span class="cnt">' + l.pitfalls.length + ' 条</span></div>';
+  h += '<div class="sub-head"><span class="lbl">注意可能出现的坑</span><span class="rule"></span><span class="cnt">' + l.pitfalls.length + ' 条</span></div>';
   h += '<ul class="pitfalls">';
   l.pitfalls.forEach(function(s){ h += '<li>' + s + '</li>'; });
   h += '</ul>';
 
   if(l.quote){
     h += '<div class="quote">';
-    h += '<p class="en">“' + esc(l.quote.en) + '”</p>';
-    h += '<p class="zh">' + esc(l.quote.zh) + '</p>';
+    h += '<p class="zh">“' + esc(l.quote.zh) + '”</p>';
     h += '<div class="src">' + esc(l.quote.src) + '</div>';
     h += '</div>';
   }
@@ -1852,12 +1878,16 @@ function renderLesson(id){
     h += fileWarnHTML();
     h += '<div class="vid-chips">';
     vids.forEach(function(v){
-      h += '<button class="vid-chip" data-vid="' + v.id + '">' +
-           '<span class="vplay"><svg viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0l10 6-10 6z"/></svg></span>' +
-           '<span class="vtxt"><span class="vttl">' + esc(v.zh) + '</span>' +
+      h += '<button class="vid-chip" data-vid="' + v.id + '" aria-label="播放 ' + esc(v.zh) + '">' +
+           '<span class="vthumb">' +
+             '<img src="https://i.ytimg.com/vi/' + v.id + '/mqdefault.jpg" alt="" width="320" height="180" loading="lazy">' +
+             '<span class="vplay"><svg viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0l10 6-10 6z"/></svg></span>' +
+           '</span>' +
+           '<span class="vtxt">' +
+           '<span class="vmeta"><span class="vtopic">' + esc(v.topic) + '</span><span class="vdur">' + esc(v.dur) + '</span></span>' +
+           '<span class="vttl">' + esc(v.zh) + '</span>' +
            '<span class="vten">' + esc(v.title) + '</span>' +
            '<span class="vwhy">' + esc(v.why) + '</span></span>' +
-           '<span class="vdur">' + esc(v.dur) + '</span>' +
            '</button>';
     });
     h += '</div>';
@@ -2057,7 +2087,7 @@ function renderVideos(focusId){
 
   var h = '<div class="map-wrap">';
   h += '<header class="hero" style="padding-top:34px">';
-  h += '<div class="eyebrow">Dunbar Academy · 精选 ' + VIDEOS.length + ' 个</div>';
+  h += '<div class="eyebrow">邓巴学院 · 精选 ' + VIDEOS.length + ' 个</div>';
   h += '<h1 style="font-size:clamp(24px,3.4vw,32px)">视频库</h1>';
   h += '<p class="lede" style="font-size:15px">从频道里挑的，只收和 Chichi 现在这些问题相关的。每个都能在这页直接播，也能跳去 YouTube。</p>';
   h += '</header>';
@@ -2092,7 +2122,7 @@ function renderVideos(focusId){
     h += '</div>';
   });
 
-  h += '<p class="map-tip">视频全部来自 <a href="https://www.youtube.com/@DunbarAcademy" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">@DunbarAcademy</a>。缩略图和播放器由 YouTube 提供，需要能访问 YouTube 的网络环境。</p>';
+  h += '<p class="map-tip">视频全部来自 <a href="https://www.youtube.com/@DunbarAcademy" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">邓巴学院 YouTube 频道</a>。缩略图和播放器由 YouTube 提供，需要能访问 YouTube 的网络环境。</p>';
   h += '</div>';
 
   viewEl.innerHTML = h;

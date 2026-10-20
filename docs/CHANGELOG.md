@@ -46,3 +46,39 @@
 - `aria-label` 和 iframe 的 `title` 也换成中文，读屏时不念一长串英文。
 - 副标题长的地方单行截断（`-webkit-line-clamp:1`），完整英文标题在播放器里是全的。
 - 英文副标题加了 `overflow-wrap:anywhere`，避免 `Mailbag` 这类长单词顶出卡片边界。
+
+## 详情页视频卡 + 全页中文化 — 2026-10-20
+
+### 详情页视频列表
+
+原来是一行纯文字的条（播放图标 + 标题 + 时长）。现在和视频库列表同构：
+
+- 左边 128px 的 16:9 缩略图（`i.ytimg.com/vi/<id>/mqdefault.jpg`），图上盖播放键，圆角 8px，四周留 10px；
+- 右边第一行是「分类 · 时长」，下面才是标题（中文）、英文副题、推荐理由；
+- 手机 390px 下网格 `148px + 1fr`，桌面 ≥700px 下缩略图 196px、字号升一档。
+- 图片加了 `loading="lazy"`，一节课最多 4 条，不会拖慢首屏。
+
+踩到的坑：一开始用 `height:100%` 让缩略图铺满卡片高度，结果图片把卡片撑高、卡片又把图片拉高，滚成了 870px 高。改成固定 `aspect-ratio:16/9` + `align-items:center` 才稳住。
+
+### 全站中文化
+
+- 「坑」→「注意可能出现的坑」（`l.pitfalls` 的段落小标）。
+- 引文块**去掉英文原文**，只留中文译文，字号从 13px 提到 14px、颜色从 `--ink-2` 提到 `--ink`，因为它现在承担的是正文而不是注释。引文来源 `#001 · Dog-friendly dog training` → `#001 · 对狗友善的训练`，`#003` 同理。
+- 正文里出现的英文术语：
+  - `Premack 原理` → 普雷马克原理（课程标题、正文、章节副标题全改）
+  - `jackpot` → 大奖
+  - `lure & reward` → 诱导—奖励法（已有中文，去掉括号里的英文）
+  - `come / sit / down / roll over` → 来 / 坐 / 卧 / 打滚
+  - `go pee go poop` → 尿尿，拉屎
+  - `insanity` → 疯狂的做法
+  - `ESL` → 第二语言
+- 人名 `Dunbar` → 邓巴（`Dunbar Mailbag`、`Dunbar Dog Diaries`、`Dunbar Academy` 这类节目名保留英文，它们是 YouTube 上的原名）。
+- 页眉 `Ian Dunbar · 22 集讲义整理` → `伊恩·邓巴 · 22 集讲义整理`，`Dunbar Academy · 精选 30 个` → `邓巴学院 · 精选 30 个`，侧栏 `Ian Dunbar · 幼犬训练体系` 同理。
+- 页眉和侧栏的品牌行原来是等宽体 + `letter-spacing:.15em` + `uppercase`，那是为英文设计的；换成中文后字间被拉开、「·」看着散，改成正文字体 + `letter-spacing:.06em`。
+- 顺手修了一个自己造出来的 bug：批量把人名换成中文时把 YouTube 链接里的 `@DunbarAcademy` 也改了，导致链接变成 `@Dunbar Academy`（带空格）。已改回，链接文字显示为「邓巴学院 YouTube 频道」。
+
+### 保留英文的地方
+
+- 视频的英文原名（作为副标题，这是刻意保留的，方便去 YouTube 搜）。
+- `Dunbar Mailbag #12`、`iWoofs Dogcast #9` 等节目名。
+- 品牌词 `Chichi`、`YouTube`。
